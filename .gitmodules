@@ -1,0 +1,12 @@
+; [submodule "docs"]
+; 	path = "code"
+; 	url = ""
+; 	active = true
+; 	ignore = all
+
+[submodule "scripts"]
+	path = "scripts"
+	url = "https://github.com/follow1123/scripts.git"
+	active = true
+	ignore = all
+
