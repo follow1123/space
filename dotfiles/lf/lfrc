@@ -1,0 +1,34 @@
+# 基础配置
+set icons true 				# 显示图标
+set hidden true				# 默认显示隐藏文件
+set previewer ~/space/dotfiles/lf/pv.cmd	# 设置预览脚本
+
+# 新建文件命令
+cmd touch ${{
+	set /p input="File Name: "
+	copy nul %input%
+}}
+
+# 禁用快捷键
+map y
+map d
+map f
+map a
+map r
+map m
+map "'"
+map '"'
+
+# 文件操作
+map dd cut					# 剪切
+map yy copy					# 复制
+map X delete				# 删除	
+map <f-2> rename 			# 重命名
+map a touch					# 新建文件
+map A push $mkdir<space>	# 新建文件夹
+
+# 文件跳转
+map gc cd ~/space/code		# 代码
+map gC cd ~/space/dotfiles	# 配置文件
+map gd cd ~/Downloads		# 下载
+

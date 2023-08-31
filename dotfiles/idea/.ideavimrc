@@ -1,0 +1,19 @@
+" idea的vim配置
+" 配置
+set hlsearch
+set incsearch
+set smartindent
+set ignorecase
+set number
+set relativenumber
+
+" 按键映射
+nnoremap <Space>v V
+nnoremap <Space>h <Esc>:nohlsearch<Enter>
+vnoremap <Space>y "+y
+nnoremap <Space>p "+p
+nnoremap <C-left> <C-w><
+nnoremap <C-right> <C-w>>
+nnoremap <C-up> <C-w>-
+nnoremap <C-down> <C-w>+
+nnoremap gi :action GotoImplementation<CR>
