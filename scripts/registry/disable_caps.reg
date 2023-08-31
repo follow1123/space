@@ -1,0 +1,5 @@
+; 禁用Cap Lock键, 重启后生效
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+"ScanCode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,00,00,3A,00,00,00,00,00
