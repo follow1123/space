@@ -1,13 +1,11 @@
 # 基础配置
 set icons true 				# 显示图标
 set hidden true				# 默认显示隐藏文件
-set previewer ~/space/dotfiles/lf/pv.cmd	# 设置预览脚本
+set previewer ~/space/dotfiles/lf/scripts/preview.cmd	# 设置预览脚本
 
 # 新建文件命令
-cmd touch ${{
-	set /p input="File Name: "
-	copy nul %input%
-}}
+cmd touch ${{ copy nul }}
+cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\lf_fzf.cmd %id% }}
 
 # 禁用快捷键
 map y
@@ -19,12 +17,13 @@ map m
 map "'"
 map '"'
 
+
 # 文件操作
 map dd cut					# 剪切
 map yy copy					# 复制
 map X delete				# 删除	
 map <f-2> rename 			# 重命名
-map a touch					# 新建文件
+map a push :touch<space>	# 新建文件
 map A push $mkdir<space>	# 新建文件夹
 
 # 文件跳转
@@ -32,3 +31,4 @@ map gc cd ~/space/code		# 代码
 map gC cd ~/space/dotfiles	# 配置文件
 map gd cd ~/Downloads		# 下载
 
+map fd fzf_dir				# 查找文件并跳转

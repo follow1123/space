@@ -8,3 +8,6 @@ soft
 lazygit/state.yml
 lf/history
 nvim
+bin
+dotfiles/lf/history
+dotfiles/lf/files
