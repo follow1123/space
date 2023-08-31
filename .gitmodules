@@ -1,9 +1,0 @@
-[submodule "scripts"]
-	path = scripts
-	url = https://github.com/follow1123/scripts.git
-[submodule "dotfiles"]
-	path = dotfiles
-	url = https://github.com/follow1123/dotfiles.git
-[submodule "docs"]
-	path = docs
-	url = https://github.com/follow1123/docs.git
