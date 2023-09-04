@@ -7,6 +7,11 @@ set previewer ~/space/dotfiles/lf/scripts/preview.cmd	# 设置预览脚本
 cmd touch ${{ copy nul }}
 cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\lf_fzf.cmd %id% }}
 
+cmd edit_lf_config $vim %LOCALAPPDATA%\lf\lfrc
+cmd edit_powershell_profile $pwsh -NoProfile -c %EDITOR% $PROFILE
+cmd edit_windows_terminal_profile $%EDITOR% %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+cmd edit_hosts $vim C:\Windows\System32\drivers\etc\hosts
+
 # 禁用快捷键
 map y
 map d
@@ -16,7 +21,14 @@ map r
 map m
 map "'"
 map '"'
+map e
 
+map i $%EDITOR% --clean %F%
+
+map e1 edit_lf_config
+map e2 edit_powershell_profile
+map e3 edit_windows_terminal_profile
+map e9 edit_hosts
 
 # 文件操作
 map dd cut					# 剪切
@@ -25,6 +37,7 @@ map X delete				# 删除
 map <f-2> rename 			# 重命名
 map a push :touch<space>	# 新建文件
 map A push $mkdir<space>	# 新建文件夹
+
 
 # 文件跳转
 map gc cd ~/space/code		# 代码

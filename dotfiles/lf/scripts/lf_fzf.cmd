@@ -6,5 +6,4 @@ for /f "tokens=*" %%i in ('fd -t d ^| fzf') do (
 
 
 set res=%choice:\=\\%
-REM echo "send %1 cd '%res%'"
 lf -remote "send %1 cd '%res%'"
