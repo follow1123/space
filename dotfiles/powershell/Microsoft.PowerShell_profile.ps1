@@ -56,7 +56,7 @@ Set-PSReadLineKeyHandler -Key "Alt+b" -Function BackwardWord				# 向后移动�
 Set-PSReadLineKeyHandler -Key "Ctrl+k" -Function KillLine					# 删除到行尾
 Set-PSReadLineKeyHandler -Key "Ctrl+u" -Function BackwardKillLine			# 删除到行首
 Set-PSReadLineKeyHandler -Key "Ctrl+n" -ScriptBlock {						# 上一个历史记录
-	[Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchBackward()
+	[Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchForward()
     [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
 }
 Set-PSReadLineKeyHandler -Key 'Ctrl+p' -ScriptBlock {						# 下一个历史记录
