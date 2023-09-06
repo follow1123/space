@@ -1,4 +1,5 @@
 os:
-  editCommand: 'nvim ' # see 'Configuring File Editing' section
-  editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
-  openCommand: 'nvim' 
+  edit: 'nvim -u $NVIM_CONF_HOME/init_min.lua {{filename}}'
+  editAtLine: 'nvim -u $NVIM_CONF_HOME/init_min.lua +{{line}} {{filename}}'
+  editInTerminal: true
+  openDirInEditor: 'nvim -u $NVIM_CONF_HOME/init_min.lua {{dir}}'

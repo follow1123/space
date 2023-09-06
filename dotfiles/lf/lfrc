@@ -1,16 +1,16 @@
 # 基础配置
 set icons true 				# 显示图标
 set hidden true				# 默认显示隐藏文件
-set previewer ~/space/dotfiles/lf/scripts/preview.cmd	# 设置预览脚本
+set previewer ~/AppData/Local/lf/scripts/preview.cmd	# 设置预览脚本
 
 # 新建文件命令
 cmd touch ${{ copy nul }}
 cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\lf_fzf.cmd %id% }}
 
-cmd edit_lf_config $vim %LOCALAPPDATA%\lf\lfrc
+cmd edit_lf_config $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\lf\lfrc
 cmd edit_powershell_profile $pwsh -NoProfile -c %EDITOR% $PROFILE
-cmd edit_windows_terminal_profile $%EDITOR% %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
-cmd edit_hosts $vim C:\Windows\System32\drivers\etc\hosts
+cmd edit_windows_terminal_profile $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+cmd edit_hosts $nvim -u %NVIM_CONF_HOME%\init_min.lua C:\Windows\System32\drivers\etc\hosts
 
 # 禁用快捷键
 map y
@@ -23,7 +23,7 @@ map "'"
 map '"'
 map e
 
-map i $%EDITOR% --clean %F%
+map i $nvim -u %NVIM_CONF_HOME%\init_min.lua %F%
 
 map e1 edit_lf_config
 map e2 edit_powershell_profile
