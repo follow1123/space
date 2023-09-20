@@ -2,15 +2,25 @@
 set icons true 				# 显示图标
 set hidden true				# 默认显示隐藏文件
 set previewer ~/AppData/Local/lf/scripts/preview.cmd	# 设置预览脚本
+set ratios '1:3:3'
+set info 'size:ctime'
+set sortby 'atime'
+
 
 # 新建文件命令
 cmd touch ${{ copy nul }}
-cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\lf_fzf.cmd %id% }}
+cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\fzf.cmd %id% }}
 
 cmd edit_lf_config $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\lf\lfrc
 cmd edit_powershell_profile $pwsh -NoProfile -c %EDITOR% $PROFILE
 cmd edit_windows_terminal_profile $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 cmd edit_hosts $nvim -u %NVIM_CONF_HOME%\init_min.lua C:\Windows\System32\drivers\etc\hosts
+cmd lazygit $lazygit.exe
+
+cmd copy_abstract_path &{{ %LOCALAPPDATA%\lf\scripts\copy_file.cmd -a }}
+cmd copy_file_name &{{ %LOCALAPPDATA%\lf\scripts\copy_file.cmd -n }}
+cmd copy_file_full_name &{{ %LOCALAPPDATA%\lf\scripts\copy_file.cmd -N }}
+cmd copy_file_directory &{{ %LOCALAPPDATA%\lf\scripts\copy_file.cmd -d }}
 
 # 禁用快捷键
 map y
@@ -18,8 +28,6 @@ map d
 map f
 map a
 map r
-map m
-map "'"
 map '"'
 map e
 
@@ -31,13 +39,19 @@ map e3 edit_windows_terminal_profile
 map e9 edit_hosts
 
 # 文件操作
-map dd cut					# 剪切
 map yy copy					# 复制
+map yn copy_file_name		# 复制文件名
+map yN copy_file_full_name	# 复制文件名,包含扩展
+map yp copy_abstract_path	# 复制文件绝对路径
+map yd copy_file_directory	# 复制当前文件夹路径
+
+map dd cut					# 剪切
 map X delete				# 删除	
 map <f-2> rename 			# 重命名
 map a push :touch<space>	# 新建文件
 map A push $mkdir<space>	# 新建文件夹
 
+map K calcdirsize			# 计算文件夹大小
 
 # 文件跳转
 map gc cd ~/space/code		# 代码
@@ -45,3 +59,5 @@ map gC cd ~/space/dotfiles	# 配置文件
 map gd cd ~/Downloads		# 下载
 
 map fd fzf_dir				# 查找文件并跳转
+
+map <a-6> lazygit			# 打开lazygit终端
