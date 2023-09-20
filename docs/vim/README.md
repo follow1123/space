@@ -1,11 +1,14 @@
-# vim键位
+# Neovim
+
+# 键位
 
 * `sp` 垂直分割窗口，`vsp` 水平分割窗口
 * `new`垂直新建一个窗口，`vnew`水平新建一个窗口
 * `ctrl+w+[h|j|k|l]`上下左右切换窗口
 * `:noh`或`:nohlsearch`取消搜索后的高亮
 * `ctrl+a/ctrl+x`让数值加1/减1
-
+* `@:` 执行上一条命令
+* `R` 进入Replace模式
 
 * `vim 文件名`：创建或打开一个文件
   * 三种模式：
@@ -41,7 +44,15 @@
 * 文件
   * 浏览当前文件 `:E`
 
-#### nerdtree 插件
 
-* `u` 进入上层目录
-* `C`进入下一层目录
+## lua api
+
+### vim options
+> 这些配置后面加_local就是临时设置,例如`opt_local` 
+
+#### opt/o vim基础配置
+
+#### bo buffer相关配置
+
+#### wo 窗口相关配置
+

@@ -144,21 +144,62 @@ if not exist filename (echo 1)
 
 ### 结构控制
 
-* TODO
-
 #### if
 
-* TODO
+```cmd
+if 1==1 (
+    echo 1 
+) else (
+    echo 2
+)
+```
 
 #### goto
 
-* TODO
+##### 实现函数定义
+
+> 函数必须定义在脚本的最后，由于是用goto实现，函数就是一部分脚本，定义在前面会先执行一遍  
+> :EOF 表示跳转到文件末尾
+
+```cmd
+REM 实现根据不同参数输出不同字符功能
+set param=1
+if %param%==1 (goto :print_a)
+if %param%==2 (goto :print_b)
+goto :EOF
+
+:print_a
+echo a
+goto :EOF
+
+:print_b
+echo b
+goto :EOF
+```
 
 ### 循环
 
 * TODO
 
 #### for
+
+##### 实现获取路径中的文件名
+```cmd
+set path="C:\a\b\a\d.txt"
+
+REM ~n 表示文件名
+for %%i in (%path%) do echo %%~ni
+REM 输出 d
+
+REM ~x 表示文件扩展名
+for %%i in (%path%) do echo %%~xi
+REM 输出 .txt
+
+REM ~nx 表示文件名和文件扩展名
+for %%i in (%path%) do echo %%~nxi
+REM 输出 d.txt
+
+```
 
 * TODO
 
