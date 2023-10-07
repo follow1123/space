@@ -1,3 +1,5 @@
+gui:
+  language: 'en'
 os:
   edit: 'nvim -u $NVIM_CONF_HOME/init_min.lua {{filename}}'
   editAtLine: 'nvim -u $NVIM_CONF_HOME/init_min.lua +{{line}} {{filename}}'
