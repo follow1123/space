@@ -12,9 +12,11 @@
     skip-grant-tables
 ```
 * 启动管理员模式下的cmd，切换到mysql安装目录的bin目录下，输入`mysql -install`
+* `net start mysql` 启动mysql服务
 * 再输入 `mysqlId --initialize-insecure --user=mysql`初始化数据文件
 * 然后再次启动mysql输入 `mysql -uroot -p`进入mysql管理界面
 * 进入界面后更改密码
+
 `update mysql.user set authentication_string=password('密码') where user='root' and Host='hocalhost';`
 （最后输入`flush privileges;` 刷新权限）
 * 修改my.ini文件，删除里面的skip-grant-tables即可

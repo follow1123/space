@@ -57,6 +57,7 @@ map K calcdirsize			# 计算文件夹大小
 map gc cd ~/space/code		# 代码
 map gC cd ~/space/dotfiles	# 配置文件
 map gd cd ~/Downloads		# 下载
+map ge cd ~/space/env		# 环境目录
 
 map fd fzf_dir				# 查找文件并跳转
 

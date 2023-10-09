@@ -4,6 +4,7 @@
 
 Set-Alias -Name ls -Value lsd
 Set-Alias -Name lg -Value lazygit
+Set-Alias -Name ld -Value lazydocker
 
 ################################
 #             函数             #

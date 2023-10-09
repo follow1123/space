@@ -21,6 +21,7 @@ let g:WhichKey_FontSize = 16
 let g:WhichKey_DefaultDelay = 100
 
 " which key 按键前缀
+let g:WhichKeyDesc_Leader = "<leader> Leader"
 let g:WhichKeyDesc_Git = "<leader>g Git"
 let g:WhichKeyDesc_Code = "<leader>c Code"
 let g:WhichKeyDesc_Next = "] Next action"
@@ -115,6 +116,7 @@ nmap <C-i> <Action>(Forward)
 nmap <C-o> <Action>(Back)
 
 nmap <M-1> <Action>(ActivateProjectToolWindow)
+nmap <C-\> <Action>(ActivateTerminalToolWindow)
 
 " 注释
 nmap <M-e> <Action>(CommentByLineComment)
@@ -125,6 +127,9 @@ nmap [f <Action>(MethodUp)
 
 let g:WhichKeyDesc_Next_Function = "]f Next function"
 nmap ]f <Action>(MethodDown)
+
+let g:WhichKeyDesc_Leader_ToggleToolButtons = "<leader>3 Toggle tool buttons"
+nmap <leader>3 <Action>(ViewToolButtons)
 
 " ######################################### 文件 file
 nmap <M-f> <Action>(GotoFile)
@@ -163,7 +168,6 @@ nmap gr <Action>(FindUsagesInFile)
 nmap gR <Action>(FindUsages)
 nmap gs <Action>(GotoSuperMethod)
 
-
 let g:WhichKeyDesc_Next_Usage= "]r Next usage"
 nmap ]r <Action>(GotoNextElementUnderCaretUsage)
 
@@ -186,8 +190,17 @@ nmap <leader>cr <Action>(RenameElement)
 nmap <F2> <Action>(RenameElement)
 
 " ######################################### project
-let g:WhichKeyDesc_Project_Find = "<leader>pf Find recent Project"
+let g:WhichKeyDesc_Project_Find = "<leader>pf Find Recent projects"
 nmap <leader>pf <Action>($LRU)
+
+let g:WhichKeyDesc_Project_Find = "<leader>pr Find Project run"
+nmap <leader>pr <Action>(Run)
+
+let g:WhichKeyDesc_Project_Find = "<leader>pd Find Project debug"
+nmap <leader>pd <Action>(Debug)
+
+let g:WhichKeyDesc_Project_Find = "<leader>ps Find Project stop"
+nmap <leader>ps <Action>(Stop)
 
 " ######################################### debug
 nmap <M-b> <Action>(ToggleLineBreakpoint)
