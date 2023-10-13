@@ -9,6 +9,7 @@ set sortby 'atime'
 
 # 新建文件命令
 cmd touch ${{ copy nul }}
+cmd explorer_open &{{ explorer . }}
 cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\fzf.cmd %id% }}
 
 cmd edit_lf_config $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\lf\lfrc
