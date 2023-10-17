@@ -1,58 +1,191 @@
-# 配置文件
+# 配置
 
-## visual studio code
+> 默认基于debian配置
 
-* `ctrl + p` 输入 import 找到 `profiles: imports profile...`
-* 选择[vsCode.code-profile](./visual_studio_code/vsCode.code-profile)文件导入
+## git
+
+```bash
+# 安装
+sudo apt install git -y
+# 配置
+ln -s ~/space/dotfiles/git/gitconfig ~/.gitconfig
+```
+## zsh
+
+* `git submodule update --init` 执行命令下载zsh插件
+
+```bash
+# 安装
+sudo apt install zsh -y
+
+# 配置
+ln -s ~/space/dotfiles/zsh/zshrc ~/.zshrc
+ln -s ~/space/dotfiles/zsh/zsh ~/.zsh
+
+# 配置用户shell
+chsh -s /bin/zsh
+
+# 配置root shell
+sudo chsh -s /bin/zsh
+```
+
+## rust
+
+>  用于安装rust编写的部分软件
+
+* 参考[官网](https://www.rust-lang.org/)提供的脚本安装方式
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+## go
+
+* 先从[官网](https://go.dev/)下载压缩包
+
+```bash
+# 解压
+sudo tar -zxvf 压缩包 -C 目标路径
+
+# 相关环境变量在.zshrc内导出
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/space/code/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+```
+
+## nodejs
+
+* 先从[官网](https://nodejs.org)下载压缩包
+```bash
+# 解压下载.tar.xz文件
+tar xf 压缩包
+
+# 相关环境变量在.zshrc内导出
+export NODEJS_HOME=$HOME/space/env/nodejs/18.18.2
+```
+
+## neovim
+
+* 从源码安装参考[github wiki](https://github.com/neovim/neovim/wiki/Building-Neovim)
+
+```bash
+# 安装依赖
+sudo apt install cmake xclip gettext -y
+
+# 安装
+cd ~/space/soft
+git clone https://github.com/neovim/neovim
+cd neovim
+# 切换到稳定版分支
+git checkout stable
+# 编译安装
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+
+# 配置
+cd ~/.config
+git clone https://github.com/follow1123/nvim.git
+
+# 添加neovim配置路径到环境变量,在其他位置使用
+export NVIM_CONF_HOME=$HOME/.config/nvim
+
+# 软连接nvim配置到root用户下
+sudo ln -s ~/.config/nvim /root/.config
+```
+## lazygit
+
+```bash
+# 安装
+go install github.com/jesseduffield/lazygit@latest
+
+# 配置
+ln -s ~/space/dotfiles/lazygit ~/.config
+```
 
 ## lf
 
-* 使用管理员打开cmd
-* 执行`mklink /d  %LOCALAPPDATA%\lf %USERPROFILE%\space\dotfiles\lf`
+```bash
+# 安装
+env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 
-## powershell
+# 配置
+ln -s ~/space/dotfiles/lf ~/.config
+```
 
-* 安装`winget install --id Microsoft.PowerShell`
-* 配置
-    * 使用管理员打开cmd
-    * `for /f %i in ('pwsh -c $PROFILE') do mklink %i %USERPROFILE%\space\dotfiles\powershell\Microsoft.PowerShell_profile.ps1`
+## fzf
 
-## alacritty
+```bash
+# 安装
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/space/soft/fzf
+~/space/soft/fzf/install
+```
 
-* 安装 `scoop install alacritty`
-* 配置
-    * 使用管理员打开cmd
-    * `mklink /d %APPDATA%\alacritty %USERPROFILE%\space\dotfiles\alacritty`
+## btop
 
-## lsd
+```bash
+# 安装
+sudo apt install btop -y
 
-* 安装
-    * `scoop install lsd`
-* 配置
-    * 使用管理员打开cmd
-    * `mklink /d %APPDATA%\lsd %USERPROFILE%\space\dotfiles\lsd`
-
-## fd 
-
-* 安装
-    * `scoop install fd`
-
-## ripgrep 
-
-* 安装
-    * `scoop install ripgrep`
-
+# 配置
+ln -s ~/space/dotfiles/btop ~/.config
+```
 ## bat 
 
-* 安装
-   * `scoop install bat`
-* 使用管理员方式打开cmd
-   * mklink /d %APPDATA%\bat %USERPROFILE%\space\dotfiles\bat
 
-## zoxide 
+```bash
+# 安装
+cargo install bat
 
-* 安装
-    * `scoop install zoxide`
-* 配置
-    * 打开powershell
-    * `echo "Invoke-Expression (& { (zoxide init powershell | Out-String) })" >> $PROFILE`
+# 配置
+ln -s ~/space/dotfiles/bat ~/.config
+```
+
+## ueberzugpp
+
+> 怎么终端内显示图像,lf内使用
+
+```bash
+# 安装依赖
+sudo apt install nlohmann-json3-dev libcli11-dev libvips-dev libsixel-dev chafa openssl libtbb-dev libspdlog-dev libfmt-dev libxcb-res0-dev -y
+
+# 安装
+cd ~/space/soft
+git clone https://github.com/jstkdng/ueberzugpp.git
+cd ueberzugpp 
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENCV=off ..
+cmake --build .
+
+# 配置
+sudo ln -s ~/space/soft/ueberzugpp/build/ueberzug /usr/local/bin/ueberzug
+sudo ln -s ~/space/soft/ueberzugpp/build/ueberzugpp /usr/local/bin/ueberzugpp
+```
+## alacritty
+
+```bash
+# 安装
+cargo install alacritty
+
+# 配置
+ln -s ~/space/dotfiles/alacritty ~/.config/alacritty
+```
+
+## firefox
+
+* 先从[官网](https://www.mozilla.org/zh-CN/firefox/new/)下载压缩包
+* 参考官方[安装文档](https://support.mozilla.org/zh-CN/kb/linux-firefox)
+
+```bash
+# 安装依赖
+sudo apt install libdbus-glib-1-2 -y
+
+# 解压
+tar xjf firefox-*.tar.bz2 -C ~/space/soft
+
+# 配置
+sudo ln -s ~/space/soft/firefox/firefox /usr/local/bin/firefox
+```
+## 其他
+
+```bash
+sudo apt install neofetch
+cargo install lsd fd-find ripgrep zoxide
+```

@@ -2,10 +2,6 @@
 window:
     # 背景透明度
     opacity: 0.9
-    # decorations: ""
-    dimensions:
-      columns: 130
-      lines: 35
 
 # 实时加载配置
 live_config_reload: true
@@ -26,7 +22,7 @@ font:
 cursor:
   style: Beam
 shell:
-  program: pwsh.exe
+  program: /bin/zsh
 
 key_bindings:
   - { key: Return, mods: Alt, action: None }
