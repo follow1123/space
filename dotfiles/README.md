@@ -103,6 +103,8 @@ ln -s ~/space/dotfiles/lazygit ~/.config
 ## lf
 
 ```bash
+# 依赖 视频预览
+sudo apt install ffmpegthumbnailer -y
 # 安装
 env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 
@@ -140,7 +142,7 @@ ln -s ~/space/dotfiles/bat ~/.config
 
 ## ueberzugpp
 
-> 怎么终端内显示图像,lf内使用
+> 在终端内显示图像,lf内使用
 
 ```bash
 # 安装依赖

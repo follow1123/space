@@ -1,12 +1,22 @@
 # 基础配置
 set icons true 				# 显示图标
 set hidden true				# 默认显示隐藏文件
-set previewer ~/.config/lf/perview.sh	# 设置预览脚本
+set previewer ~/.config/lf/perviewer.sh	# 设置预览脚本
+set cleaner ~/.config/lf/clear_img.sh 	# 清理图片缓存
 set ratios '1:3:3'
 set info 'size:ctime'
 set sortby 'atime'
 
+# 跳转目录命令
+cmd z %{{
+	result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	lf -remote "send $id cd \"$result\""
+}}
 
+cmd zi ${{
+	result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	lf -remote "send $id cd \"$result\""
+}}
 # 使用图形界面打开当前文件夹
 cmd explorer_open &{{ nemo . }}
 
