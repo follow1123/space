@@ -12,15 +12,21 @@ ln -s ~/space/dotfiles/git/gitconfig ~/.gitconfig
 ```
 ## zsh
 
-* `git submodule update --init` 执行命令下载zsh插件
-
 ```bash
+# 插件下载
+mkdir -p ~/.local/share/zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.local/share/zsh
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.local/share/zsh
+git clone https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh
+# 如果有问题执行以下代码切换到固定的commit
+cd ~/.local/share/zsh/powerlevel10k && git checkout 0af598cbed78660066f8a8f4465844501ba5695b
+cd ~/.local/share/zsh/zsh-autosuggestions && git checkout a411ef3e0992d4839f0732ebeb9823024afaaaa8
+cd ~/.local/share/zsh/zsh-syntax-highlighting && git checkout 754cefe0181a7acd42fdcb357a67d0217291ac47
 # 安装
 sudo apt install zsh -y
 
 # 配置
 ln -s ~/space/dotfiles/zsh/zshrc ~/.zshrc
-ln -s ~/space/dotfiles/zsh/zsh ~/.zsh
 
 # 配置用户shell
 chsh -s /bin/zsh

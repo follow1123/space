@@ -7,7 +7,6 @@ soft
 
 lazygit/state.yml
 lf/history
-nvim
 bin
 dotfiles/lf/history
 dotfiles/lf/files
@@ -15,6 +14,3 @@ dotfiles/lazygit/state.yml
 dotfiles/lf/files
 dotfiles/lf/files
 dotfiles/lf/marks
-dotfiles/zsh/zsh/powerlevel10k
-dotfiles/zsh/zsh/zsh-autosuggestions
-dotfiles/zsh/zsh/zsh-syntax-highlighting

@@ -18,7 +18,7 @@ bindkey -e
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
-SAVEHIST=1000
+SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
@@ -53,7 +53,7 @@ export OPENER=
 export FZF_DEFAULT_OPTS="--height 90% --layout=reverse --info=inline:' ' --prompt='❯ '"
 # PATH
 # rust 工具配置
-. "$HOME/.cargo/env"
+[ -f ~/.cargo/env ] && . "$HOME/.cargo/env"
 # go
 export GOROOT=~/space/env/go
 export GOPATH=$HOME/space/code/go
@@ -65,14 +65,19 @@ export NVIM_CONF_HOME=$HOME/.config/nvim
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$NODEJS_HOME/bin
 
 #-----------------------------------------配置导入-----------------------------------------#
-# 主题
-source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-# 语法高亮
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# 自动提示
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# zsh插件导入
+if [ -d  ~/.local/share/zsh ]; then
+	# 主题
+	[ -d ~/.local/share/zsh/powerlevel10k ] && source ~/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme
+	# 语法高亮
+	[ -d ~/.local/share/zsh/zsh-syntax-highlighting ] && source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	# 自动提示
+	[ -d ~/.local/share/zsh/zsh-autosuggestions ] && source ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 # 目录跳转
-eval "$(zoxide init zsh)"
+if command -v "zoxide" >/dev/null 2>&1; then
+	eval "$(zoxide init zsh)"
+fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # fzf 插件加载
@@ -81,7 +86,7 @@ eval "$(zoxide init zsh)"
 #-----------------------------------------别名-----------------------------------------#
 alias ls='lsd'
 alias lg='lazygit'
-# alias lf='~/space/scripts/joshuto_ueberzug.sh'
+alias lf='~/.config/lf/lf_ueberzug.sh'
 
 # alias s='startx'
 alias ll='ls -l'
@@ -92,11 +97,9 @@ alias n='neofetch'
 alias hb='systemctl hibernate'
 alias sp='systemctl suspend'
 
+alias vim='nvim -u $NVIM_CONF_HOME/init_min.lua'
 #-----------------------------------------按键绑定-----------------------------------------#
-# ctrl+j  接受一段 接受到最后一个单词有bug
-if [[ "$INSIDE_EMACS" != 'vterm' ]]; then
-	bindkey '^j' autosuggest-accept
-fi
+
 
 #-----------------------------------------其它-----------------------------------------#
 # 导入本地配置
