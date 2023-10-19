@@ -152,7 +152,7 @@ ln -s ~/space/dotfiles/bat ~/.config
 
 ```bash
 # 安装依赖
-sudo apt install nlohmann-json3-dev libcli11-dev libvips-dev libsixel-dev chafa openssl libtbb-dev libspdlog-dev libfmt-dev libxcb-res0-dev libchafa-dev -y
+sudo apt install nlohmann-json3-dev libcli11-dev libvips-dev libsixel-dev chafa openssl libtbb-dev libspdlog-dev libfmt-dev libxcb-res0-dev libchafa-dev libxcb-image0-dev -y
 
 # 安装
 cd ~/space/soft
