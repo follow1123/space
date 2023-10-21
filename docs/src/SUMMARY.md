@@ -1,6 +1,7 @@
 * [Linux](linux/README.md)
     * [Linux桌面环境](linux/desktop_env/README.md)
     * [vsftp](linux/vsftp/README.md)
+    * [systemd](linux/systemd/README.md)
 * [Windows](windows/README.md)
     * [Command Prompt](windows/command_prompt/README.md)
     * [wsl2](windows/wsl2/README.md)

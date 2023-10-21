@@ -2,7 +2,9 @@
 
 ## docker安装
 
-* [安装文档](https://docs.docker.com/get-docker/)
+* [安装文档](https://docs.docker.com/engine/install/debian/#installation-methods)
+
+* 在文档内选择安装方式安装，我使用的apt安装方式
 
 
 ### 添加镜像

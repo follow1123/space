@@ -87,3 +87,13 @@ function sub(a, b, ...other) {
 ```
 
 ## BOM对象
+
+# node
+
+### 添加镜像仓库
+
+* 打开用户目录下的.npmrc文，添加以下代码
+
+```text
+registry=https://registry.npm.taobao.org/
+```
