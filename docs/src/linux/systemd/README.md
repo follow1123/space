@@ -65,6 +65,29 @@
 
 > loginctl
 
+#### 登录管理器配置文件
+
+* 默认路径
+
+```bash
+/etc/systemd/logind.conf
+/etc/systemd/logind.conf.d/*.conf
+/run/systemd/logind.conf.d/*.conf
+/usr/lib/systemd/logind.conf.d/*.conf
+```
+## 常用配置项说明
+
+> 参考[archwiki](https://man.archlinux.org/man/logind.conf.5.en)
+
+
+* `HandlePowerKey` 按下电源键操作
+
+* `IdleAction` 电脑空闲时的操作
+
+* `IdleActionSec` 电脑空闲多少时间后执行空闲操作
+
+* `HandleLidSwitch` 笔记本合盖操作
+
 ### Unit配置保存路径
 
 * 优先级从高到低
@@ -84,3 +107,4 @@ sudo update-alternatives --install "$(which editor)" editor "$(which 编辑器�
 # 配置
 sudo update-alternatives --config editor
 ```
+
