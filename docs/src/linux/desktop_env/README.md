@@ -75,12 +75,21 @@
 
 ## ssh
 
-* 使用密钥登录
-  * linux 服务端需要登录的用户家目录下新建.ssh文件夹（如果没有）
-  * 客户端使用`ssh-keygen`命令生成密钥对
-  * 将生成的`id_rsa.pub`公钥发送到服务端家目录下的`.ssh/authorized_keys`文件内
-  * 出现 WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
-    * 使用命令清除所连接的IP`ssh-keygen -R XX.XX.XX.XX`
+### ssh密钥登录
+> 假如`a`需要连接到`b`
+
+```bash
+# 在`a`的终端下输入命令生成密钥，保存在当前用户目录下的.ssh文件夹内
+ssh-keygen # 正常环境下有提示回车即可（生产环境下需要看一下提示）
+
+# 将`a`机器下的~/.ssh/id_rsa.pub文件推送到服务器`b`上
+scp ~/.ssh/id_rsa.pub 用户名@`b`的ip:需要登录的用户目录/.ssh/authorized_keys
+
+# 使用ssh连接
+ssh `b`
+```
+* 清理密钥 `ssh-keygen -R ip`
+
 
 ## apt
 
