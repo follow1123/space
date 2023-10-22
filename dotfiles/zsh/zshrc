@@ -64,6 +64,11 @@ export NVIM_CONF_HOME=$HOME/.config/nvim
 
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$NODEJS_HOME/bin
 
+# zsh 快捷键支持路径分割
+export WORDCHARS=${WORDCHARS/\//}
+
+
+export SYSTEMD_EDITOR=/usr/local/bin/nvim
 #-----------------------------------------配置导入-----------------------------------------#
 # zsh插件导入
 if [ -d  ~/.local/share/zsh ]; then
@@ -96,6 +101,7 @@ alias grep="grep --color=auto"
 alias n='neofetch'
 alias hb='systemctl hibernate'
 alias sp='systemctl suspend'
+alias vman='~/space/scripts/viman.sh'
 
 alias vim='nvim -u $NVIM_CONF_HOME/init_min.lua'
 #-----------------------------------------按键绑定-----------------------------------------#
