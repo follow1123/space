@@ -1,182 +1,104 @@
 {
-    //--------------------------------------------------------------- vim插件相关配置 --------------------------------------------------------------- 
-    "vim.visualModeKeyBindingsNonRecursive": [],
-    "vim.normalModeKeyBindings": [
-        { // 打开which key 面板
-            "before": [
-                "<space>"
-            ],
-            "commands": [
-                "whichkey.show"
-            ]
-        }
-    ],
-    "vim.visualModeKeyBindings": [
-        { // which key
-            "before": [
-                "<space>"
-            ],
-            "commands": [
-                "whichkey.show"
-            ]
-        },
-    ],
-    "vim.normalModeKeyBindingsNonRecursive": [
-        { // ctrl + 上下左右键调整分割后窗口的大小
-            "before": [
-                "<C-up>"
-            ],
-            "after": [
-                "<C-w>",
-                "-"
-            ]
-        },
-        {
-            "before": [
-                "<C-down>"
-            ],
-            "after": [
-                "<C-w>",
-                "+"
-            ]
-        },
-        {
-            "before": [
-                "<C-left>"
-            ],
-            "after": [
-                "<C-w>",
-                "<"
-            ]
-        },
-        {
-            "before": [
-                "<C-right>"
-            ],
-            "after": [
-                "<C-w>",
-                ">"
-            ]
-        },
-        { // 向上或向下移动时光标始终保持在中间
-            "before": [
-                "<C-d>"
-            ],
-            "after": [
-                "<C-d>",
-                "z",
-                "z"
-            ]
-        },
-        {
-            "before": [
-                "<C-u>"
-            ],
-            "after": [
-                "<C-u>",
-                "z",
-                "z"
-            ]
-        },
-        {
-            "before": [
-                "n"
-            ],
-            "after": [
-                "n",
-                "z",
-                "z",
-            ]
-        },
-        {
-            "before": [
-                "N"
-            ],
-            "after": [
-                "N",
-                "z",
-                "z",
-            ]
-        },
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "u"
-        //     ],
-        //     "commands": [
-        //         "editor.action.referenceSearch.trigger"
-        //     ]
-        // },
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "U"
-        //     ],
-        //     "commands": [
-        //         "references-view.findReferences"
-        //     ]
-        // },
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "i",
-        //         "n"
-        //     ],
-        //     "commands": [
-        //         "references-view.showCallHierarchy"
-        //     ]
-        // },
-        // {// -- run
-        //     "before": [
-        //         "<leader>",
-        //         "r"
-        //     ],
-        //     "commands": [
-        //         "workbench.action.files.save",
-        //         "workbench.action.debug.run"
-        //     ]
-        // },
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "d",
-        //         "r"
-        //     ],
-        //     "commands": [
-        //         "workbench.action.files.save",
-        //         "workbench.action.debug.start"
-        //     ]
-        // },
-        // {// -- debug
-        //     "before": [
-        //         "<leader>",
-        //         "d",
-        //         "b"
-        //     ],
-        //     "commands": [
-        //         "editor.debug.action.toggleBreakpoint"
-        //     ]
-        // },
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "d",
-        //         "c"
-        //     ],
-        //     "commands": [
-        //         "editor.debug.action.conditionalBreakpoint"
-        //     ]
-        // },
-        // search
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "f",
-        //         "w"
-        //     ],
-        //     "commands": [
-        //         "extension.searchUnderCursor",
-        //     ]
-        // },
-    ]
+  //################################################################ vim插件配置
+  "extensions.autoUpdate": false,
+  "vim.normalModeKeyBindings": [
+      { // 打开which key 面板
+          "before": [ "<space>" ],
+          "commands": [ "whichkey.show" ]
+      }
+  ],
+  "vim.visualModeKeyBindings": [
+      { // which key
+          "before": [ "<space>" ],
+          "commands": [ "whichkey.show" ]
+      },
+  ],
+  "vim.insertModeKeyBindingsNonRecursive": [ ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+      { // visual模式下tab        
+
+          "before": [ ">" ],
+          "after": [ ">", "g", "v"]
+      },
+      {
+          "before": [ "<" ],
+          "after": [ "<", "g", "v"]
+      }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+      { // 移动窗口快捷键
+          "before": [ "<C-h>" ],
+          "after": [ "<C-w>", "h" ]
+      },
+      {
+          "before": [ "<C-l>" ],
+          "after": [ "<C-w>", "l" ]
+      },
+      {
+          "before": [ "<C-j>" ],
+          "after": [ "<C-w>", "j" ]
+      },
+      {
+          "before": [ "<C-k>" ],
+          "after": [ "<C-w>", "k" ]
+      },
+      { // ctrl + 上下左右键调整分割后窗口的大小
+          "before": [ "<C-up>" ],
+          "after": [ "<C-w>", "+" ]
+      },
+      {
+          "before": [ "<C-down>" ],
+          "after": [ "<C-w>", "-" ]
+      },
+      {
+          "before": [ "<C-left>" ],
+          "after": [ "<C-w>", "<" ]
+      },
+      {
+          "before": [ "<C-right>" ],
+          "after": [ "<C-w>", ">" ]
+      },
+      { // 向上或向下移动时光标始终保持在中间
+          "before": [ "<C-d>" ],
+          "after": [ "<C-d>", "z", "z" ]
+      },
+      {
+          "before": [ "<C-u>" ],
+          "after": [ "<C-u>", "z", "z" ]
+      },
+      {
+          "before": [ "n" ],
+          "after": [ "n", "z", "z", ]
+      },
+      {
+          "before": [ "N" ],
+          "after": [ "N", "z", "z", ]
+      },
+      { // esc取消高亮
+          "before": [ "<Esc>" ],
+          "commands": [ ":nohlsearch", "<Esc>"]
+      },
+      { // Git 下一个change
+          "before": [ "]", "c" ],
+          "commands": [
+              "workbench.action.editor.nextChange",
+              "editor.action.dirtydiff.next"
+          ]
+      },
+      { // Git 上一个change
+          "before": [ "[", "c" ],
+          "commands": [
+              "workbench.action.editor.previousChange",
+              "editor.action.dirtydiff.previous"
+          ]
+      },
+      { // 下一个错误
+        "before": [ "]", "d" ],
+        "commands": [ "editor.action.marker.next" ]
+      },
+      { // 上一个错误
+        "before": [ "[", "d" ],
+        "commands": [ "editor.action.marker.prev" ]
+      },
+  ],
 }
