@@ -11,18 +11,33 @@
     port=3306
     skip-grant-tables
 ```
-* 启动管理员模式下的cmd，切换到mysql安装目录的bin目录下，输入`mysql -install`
-* `net start mysql` 启动mysql服务
-* 再输入 `mysqlId --initialize-insecure --user=mysql`初始化数据文件
-* 然后再次启动mysql输入 `mysql -uroot -p`进入mysql管理界面
-* 进入界面后更改密码
 
-`update mysql.user set authentication_string=password('密码') where user='root' and Host='hocalhost';`
-（最后输入`flush privileges;` 刷新权限）
+* 在mysql目录下新建data文件夹
+
+> 以下命令在管理员权限下运行
+
+* `mysqld --initialize --console` 初始化mysql
+* `mysqld -install` 安装mysql
+* `net start mysql` 启动mysql服务
+* 然后再次启动mysql输入 `mysql -uroot -p`进入mysql管理界面
+
+    * 进入界面后更改密码，出现`You must reset your password using ALTER USER statement before executing this statement.` 也是需要重置密码
+
+        * `SET PASSWORD = PASSWORD('密码');`
+
+        * `ALTER USER 'root'@'localhost' PASSWORD EXPIRE NEVER;`
+
+        * `flush privileges;`
+
+
+~~`update mysql.user set authentication_string=password('密码') where user='root' and Host='hocalhost';`（最后输入`flush privileges;` 刷新权限）~~
+
 * 修改my.ini文件，删除里面的skip-grant-tables即可
+
 * 重启mysql
     * `net stop mysql`
     * `net start mysql`
+
 ## 简介
 ### mysql语言不区分大小写
 * DDL 数据库定义语言
