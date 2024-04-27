@@ -3,3 +3,14 @@
 	email = ---
 [credential]
 	helper = store
+[credential "helperselector"]
+	selected = manager-ui
+[core]
+	editor = nvim -u $NVIM_CONF_HOME/init_min.lua
+
+[merge]
+	tool = vimdiff
+
+[mergetool "vimdiff"]
+	cmd = nvim -u '$NVIM_CONF_HOME/init_min.lua' -d $BASE $LOCAL $MERGED $REMOTE -c 'wincmd c' -c 'wincmd l' -c 'normal ]c'
+	# cmd = nvim -u 'C:/Users/yf/AppData/Local/nvim/init_min.lua' -d $LOCAL $BASE $REMOTE
