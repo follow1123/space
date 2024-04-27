@@ -17,9 +17,7 @@ ln -s ~/space/dotfiles/git/gitconfig ~/.gitconfig
 mkdir -p ~/.local/share/zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.local/share/zsh/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.local/share/zsh/zsh-syntax-highlighting
-git clone https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh/powerlevel10k
 # 如果有问题执行以下代码切换到固定的commit
-cd ~/.local/share/zsh/powerlevel10k && git checkout 0af598cbed78660066f8a8f4465844501ba5695b
 cd ~/.local/share/zsh/zsh-autosuggestions && git checkout a411ef3e0992d4839f0732ebeb9823024afaaaa8
 cd ~/.local/share/zsh/zsh-syntax-highlighting && git checkout 754cefe0181a7acd42fdcb357a67d0217291ac47
 # 安装
@@ -125,16 +123,6 @@ ln -s ~/space/dotfiles/lf ~/.config
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/space/soft/fzf
 ~/space/soft/fzf/install
 ```
-
-## btop
-
-```bash
-# 安装
-sudo apt install btop -y
-
-# 配置
-ln -s ~/space/dotfiles/btop ~/.config
-```
 ## bat 
 
 
@@ -152,7 +140,7 @@ ln -s ~/space/dotfiles/bat ~/.config
 
 ```bash
 # 安装依赖
-sudo apt install nlohmann-json3-dev libcli11-dev libvips-dev libsixel-dev chafa openssl libtbb-dev libspdlog-dev libfmt-dev libxcb-res0-dev libchafa-dev libxcb-image0-dev -y
+sudo apt install nlohmann-json3-dev libcli11-dev libvips-dev libsixel-dev libchafa-dev openssl libtbb-dev libspdlog-dev libfmt-dev libxcb-res0-dev -y
 
 # 安装
 cd ~/space/soft
@@ -195,5 +183,5 @@ sudo ln -s ~/space/soft/firefox/firefox /usr/local/bin/firefox
 
 ```bash
 sudo apt install neofetch
-cargo install lsd fd-find ripgrep zoxide
+cargo install fd-find ripgrep zoxide
 ```

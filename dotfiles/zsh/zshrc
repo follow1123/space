@@ -1,15 +1,8 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Set up the prompt
 
 autoload -Uz promptinit
 promptinit
-prompt adam1
+prompt suse
 
 setopt histignorealldups sharehistory
 
@@ -44,8 +37,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 #-----------------------------------------环境变量-----------------------------------------#
-# 系统配置
-source /etc/profile
 # lf文件管理器配置
 export EDITOR=nvim
 export OPENER=
@@ -72,8 +63,6 @@ export SYSTEMD_EDITOR=/usr/local/bin/nvim
 #-----------------------------------------配置导入-----------------------------------------#
 # zsh插件导入
 if [ -d  ~/.local/share/zsh ]; then
-	# 主题
-	[ -d ~/.local/share/zsh/powerlevel10k ] && source ~/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme
 	# 语法高亮
 	[ -d ~/.local/share/zsh/zsh-syntax-highlighting ] && source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 	# 自动提示
@@ -83,20 +72,19 @@ fi
 if command -v "zoxide" >/dev/null 2>&1; then
 	eval "$(zoxide init zsh)"
 fi
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # fzf 插件加载
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #-----------------------------------------别名-----------------------------------------#
-alias ls='lsd'
+alias ls='ls --color'
 alias lg='lazygit'
 alias lf='~/.config/lf/lf_ueberzug.sh'
 
 # alias s='startx'
-alias ll='ls -l'
+alias ll='ls -lh'
 alias la='ls -a'
-alias lla='ls -al'
+alias lla='ls -alh'
 alias grep="grep --color=auto"
 alias n='neofetch'
 alias hb='systemctl hibernate'
