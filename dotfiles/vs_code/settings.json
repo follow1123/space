@@ -13,18 +13,30 @@
           "commands": [ "whichkey.show" ]
       },
   ],
-  "vim.insertModeKeyBindingsNonRecursive": [ ],
+  //################################################################ insert模式
+  "vim.insertModeKeyBindingsNonRecursive": [ 
+      { // 显示补全弹窗
+        "before": [ "<C-p>" ],
+        "commands": [ "editor.action.triggerSuggest" ]
+      },
+  ],
+
+  //################################################################ visual模式
   "vim.visualModeKeyBindingsNonRecursive": [
       { // visual模式下tab        
-
-          "before": [ ">" ],
-          "after": [ ">", "g", "v"]
+        "before": [ ">" ],
+        "after": [ ">", "g", "v" ]
       },
       {
-          "before": [ "<" ],
-          "after": [ "<", "g", "v"]
-      }
+        "before": [ "<" ],
+        "after": [ "<", "g", "v"]
+      },
+      // {
+      //   "before": [ "=" ],
+      //   "commands": [ "editor.action.formatSelection" ]
+      // }
   ],
+  //################################################################ normal模式
   "vim.normalModeKeyBindingsNonRecursive": [
       { // 移动窗口快捷键
           "before": [ "<C-h>" ],
@@ -42,7 +54,7 @@
           "before": [ "<C-k>" ],
           "after": [ "<C-w>", "k" ]
       },
-      { // ctrl + 上下左右键调整分割后窗口的大小
+      { // 窗口大小
           "before": [ "<C-up>" ],
           "after": [ "<C-w>", "+" ]
       },
@@ -78,6 +90,7 @@
           "before": [ "<Esc>" ],
           "commands": [ ":nohlsearch", "<Esc>"]
       },
+      //################################################################ git
       { // Git 下一个change
           "before": [ "]", "c" ],
           "commands": [
@@ -92,6 +105,7 @@
               "editor.action.dirtydiff.previous"
           ]
       },
+      //################################################################ 代码诊断
       { // 下一个错误
         "before": [ "]", "d" ],
         "commands": [ "editor.action.marker.next" ]
@@ -100,5 +114,40 @@
         "before": [ "[", "d" ],
         "commands": [ "editor.action.marker.prev" ]
       },
+      //################################################################ 代码跳转
+      { // 跳转到定义
+        "before": [ "g", "d" ],
+        "commands": [ "editor.action.revealDefinition" ]
+      },
+      { // 跳转到类型定义
+        "before": [ "g", "D" ],
+        "commands": [ "editor.action.goToTypeDefinition" ]
+      },
+      { // 跳转到实现
+        "before": [ "g", "i" ],
+        "commands": [ "editor.action.goToImplementation" ]
+      },
+      { // 跳转到引用
+        "before": [ "g", "r" ],
+        "commands": [ "editor.action.goToReferences" ]
+      },
+      { // 显示变量或函数签名
+        "before": [ "K" ],
+        "commands": [ "editor.action.showHover" ]
+      },
+      { // 打开连接
+        "before": [ "g", "l" ],
+        "commands": [ "editor.action.openLink" ]
+      },
+      //################################################################ 标签
+      { // 切换到下一个标签
+        "before": [ "L" ],
+        "commands": [ "workbench.action.nextEditorInGroup" ]
+      },
+      { // 切换到上一个标签
+        "before": [ "H" ],
+        "commands": [ "workbench.action.previousEditorInGroup" ]
+      },
   ],
+  "window.menuBarVisibility": "toggle",
 }

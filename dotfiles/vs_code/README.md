@@ -4,5 +4,10 @@
 
 * 先将必须在默认profile内配置的文件移动到默认配置文件夹内
 
+```cmd
+mklink %APPDATA%\Code\User\settings.json %USERPROFILE%\space\dotfiles\vs_code\settings.json
+
+```
+
 * 在手动导入.code-profile结尾的文件
 
