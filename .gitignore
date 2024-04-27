@@ -3,6 +3,7 @@ images/
 env/
 other/
 tmp/
+log/
 soft
 
 lazygit/state.yml
