@@ -77,21 +77,22 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #-----------------------------------------别名-----------------------------------------#
-alias ls='ls --color'
+alias ls='ls -hF --color'
 alias lg='lazygit'
 alias lf='~/.config/lf/lf_ueberzug.sh'
 
 # alias s='startx'
-alias ll='ls -lh'
-alias la='ls -a'
-alias lla='ls -alh'
+alias ll='ls -l'
+alias la='ls -A'
+alias lla='ls -Al'
 alias grep="grep --color=auto"
 alias n='neofetch'
 alias hb='systemctl hibernate'
 alias sp='systemctl suspend'
-alias vman='~/space/scripts/viman.sh'
+alias man='~/space/scripts/viman.sh'
 
 alias vim='nvim -u $NVIM_CONF_HOME/init_min.lua'
+
 #-----------------------------------------按键绑定-----------------------------------------#
 
 

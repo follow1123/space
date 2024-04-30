@@ -1,7 +1,7 @@
 # 窗口大小
 window:
     # 背景透明度
-    opacity: 0.8
+    opacity: 0.9
 
 # 实时加载配置
 live_config_reload: true
@@ -9,7 +9,7 @@ live_config_reload: true
 # 字体
 font:       
   # 字体大小
-  size: 14
+  size: 12
   # 字体风格
   normal:
     family: JetBrainsMono Nerd Font
