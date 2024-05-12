@@ -1,9 +1,9 @@
 param ([string]$ver)
 
 $maven_paths = @{
-	"3.0.5" = "C:\Users\yf\space\env\maven\3.0.5"
-	"3.6.3" = "C:\Users\yf\space\env\maven\3.6.3"
-	"3.9.5" = "C:\Users\yf\space\env\maven\3.9.5"
+	"3.0.5" = "$Env:USERPROFILE\space\env\maven\3.0.5"
+	"3.6.3" = "$Env:USERPROFILE\space\env\maven\3.6.3"
+	"3.9.5" = "$Env:USERPROFILE\space\env\maven\3.9.5"
 }
 
 if ($ver -eq "") {
