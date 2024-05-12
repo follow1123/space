@@ -1,6 +1,0 @@
-[book]
-authors = ["yf"]
-language = "zh"
-multilingual = false
-src = "src"
-title = "文档"
