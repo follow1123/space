@@ -24,14 +24,6 @@
     * 使用管理员打开cmd
     * `mklink /d %APPDATA%\alacritty %USERPROFILE%\space\dotfiles\alacritty`
 
-## lsd
-
-* 安装
-    * `scoop install lsd`
-* 配置
-    * 使用管理员打开cmd
-    * `mklink /d %APPDATA%\lsd %USERPROFILE%\space\dotfiles\lsd`
-
 ## fd 
 
 * 安装
