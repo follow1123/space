@@ -14,10 +14,10 @@ cmd touch ${{ copy nul }}
 cmd explorer_open &{{ explorer . }}
 cmd fzf_dir ${{ %LOCALAPPDATA%\lf\scripts\fzf.cmd %id% }}
 
-cmd edit_lf_config $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\lf\lfrc
+cmd edit_lf_config $nvim -u %LOCALAPPDATA%\nvim\init_noplugin.lua %LOCALAPPDATA%\lf\lfrc
 cmd edit_powershell_profile $pwsh -NoProfile -c %EDITOR% $PROFILE
-cmd edit_windows_terminal_profile $nvim -u %NVIM_CONF_HOME%\init_min.lua %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
-cmd edit_hosts $nvim -u %NVIM_CONF_HOME%\init_min.lua C:\Windows\System32\drivers\etc\hosts
+cmd edit_windows_terminal_profile $nvim -u %LOCALAPPDATA%\nvim\init_noplugin.lua %LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+cmd edit_hosts $nvim -u %LOCALAPPDATA%\nvim\init_noplugin.lua C:\Windows\System32\drivers\etc\hosts
 cmd lazygit $lazygit.exe
 cmd pwsh $pwsh
 
@@ -27,7 +27,7 @@ cmd copy_file_full_name &{{ %LOCALAPPDATA%\lf\scripts\copy_file.cmd -N }}
 cmd copy_file_directory &{{ %LOCALAPPDATA%\lf\scripts\copy_file.cmd -d }}
 
 # diff 选中的所有文件
-cmd diff_selected_file ${{ nvim -u %NVIM_CONF_HOME%\init_min.lua -d %FS:?= % }}
+cmd diff_selected_file ${{ nvim -u %LOCALAPPDATA%\nvim\init_noplugin.lua -d %FS:?= % }}
 
 # 跳转目录
 cmd z ${{ %LOCALAPPDATA%\lf\scripts\zoxide.cmd %ID% }}
@@ -41,7 +41,7 @@ map r
 map '"'
 map e
 
-map i $nvim -u %NVIM_CONF_HOME%\init_min.lua %F%
+map i $nvim -u %LOCALAPPDATA%\nvim\init_noplugin.lua %F%
 map I $nvim %F%
 
 map e1 edit_lf_config

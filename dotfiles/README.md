@@ -1,50 +1,141 @@
-# 配置文件
+# 配置
 
-## visual studio code
+## wezterm
 
-* `ctrl + p` 输入 import 找到 `profiles: imports profile...`
-* 选择[vsCode.code-profile](./visual_studio_code/vsCode.code-profile)文件导入
+```cmd
+REM 创建配置文件夹
+mkdir %USERPROFILE%\.config
 
-## lf
+REM 安装
+winget install --id wez.wezterm
 
-* 使用管理员打开cmd
-* 执行`mklink /d  %LOCALAPPDATA%\lf %USERPROFILE%\space\dotfiles\lf`
-
-## powershell
-
-* 安装`winget install --id Microsoft.PowerShell`
-* 配置
-    * 使用管理员打开cmd
-    * `for /f %i in ('pwsh -c $PROFILE') do mklink %i %USERPROFILE%\space\dotfiles\powershell\Microsoft.PowerShell_profile.ps1`
+REM 配置，使用管理员打开cmd
+mklink /d %USERPROFILE%\.config\wezterm %USERPROFILE%\space\dotfiles\wezterm
+```
 
 ## alacritty
 
-* 安装 `scoop install alacritty`
-* 配置
-    * 使用管理员打开cmd
-    * `mklink /d %APPDATA%\alacritty %USERPROFILE%\space\dotfiles\alacritty`
+```cmd
+REM 安装
+scoop install alacritty
 
-## fd 
+REM 配置，使用管理员打开cmd
+mklink /d %APPDATA%\alacritty %USERPROFILE%\space\dotfiles\alacritty
+```
 
-* 安装
-    * `scoop install fd`
+## powershell
 
-## ripgrep 
+```cmd
+REM 安装
+winget install --id Microsoft.PowerShell
 
-* 安装
-    * `scoop install ripgrep`
+REM 配置，使用管理员打开cmd
+for /f %i in ('pwsh -c $PROFILE') do mklink %i %USERPROFILE%\space\dotfiles\powershell\Microsoft.PowerShell_profile.ps1
+```
+
+## git
+
+```cmd
+REM 安装
+winget install --id Git.Git
+
+REM 配置，打开powershell
+TODO
+```
+
+## lf
+
+```cmd
+REM 安装
+scoop install lf
+
+REM 配置，使用管理员打开cmd
+mklink /d %LOCALAPPDATA%\lf %USERPROFILE%\space\dotfiles\lf
+```
+
+## lazygit
+
+```cmd
+REM 安装
+scoop install lazygit
+
+REM 配置，使用管理员打开cmd
+mklink /d %APPDATA%\lazygit %USERPROFILE%\space\dotfiles\lazygit
+```
 
 ## bat 
 
-* 安装
-   * `scoop install bat`
-* 使用管理员方式打开cmd
-   * mklink /d %APPDATA%\bat %USERPROFILE%\space\dotfiles\bat
+```cmd
+REM 安装
+scoop install bat
+
+REM 配置，使用管理员打开cmd
+mklink /d %APPDATA%\bat %USERPROFILE%\space\dotfiles\bat
+```
 
 ## zoxide 
 
-* 安装
-    * `scoop install zoxide`
-* 配置
-    * 打开powershell
-    * `echo "Invoke-Expression (& { (zoxide init powershell | Out-String) })" >> $PROFILE`
+```cmd
+REM 安装
+scoop install zoxide
+
+REM 配置，打开powershell（这个配置默认已经在powershell配置内）
+echo "Invoke-Expression (& { (zoxide init powershell | Out-String) })" >> $PROFILE
+```
+
+## Bandzip
+
+```cmd
+REM 安装
+winget install --id Bandisoft.Bandizip
+```
+
+## fd
+
+```cmd
+REM 安装
+scoop install fd
+```
+
+## ripgrep
+
+```cmd
+REM 安装
+scoop install ripgrep
+```
+
+## btop
+
+```cmd
+REM 安装
+scoop install btop
+```
+
+## fzf
+
+```cmd
+REM 安装
+scoop install fzf
+```
+
+## jq
+
+```cmd
+REM 安装
+scoop install jq
+```
+
+## xmllint
+
+```cmd
+REM 安装
+scoop install xmllint
+```
+
+## Visual Studio Code 
+
+* TODO
+
+## IntelliJ IDEA
+
+* TODO

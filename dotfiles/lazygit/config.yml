@@ -1,7 +1,7 @@
 gui:
   language: 'en'
 os:
-  edit: 'nvim -u $NVIM_CONF_HOME/init_min.lua {{filename}}'
-  editAtLine: 'nvim -u $NVIM_CONF_HOME/init_min.lua +{{line}} {{filename}}'
+  edit: 'nvim -u $LOCALAPPDATA/nvim/init_noplugin.lua {{filename}}'
+  editAtLine: 'nvim -u $LOCALAPPDATA/nvim/init_noplugin.lua +{{line}} {{filename}}'
   editInTerminal: true
-  openDirInEditor: 'nvim -u $NVIM_CONF_HOME/init_min.lua {{dir}}'
+  openDirInEditor: 'nvim -u $LOCALAPPDATA/nvim/init_noplugin.lua {{dir}}'

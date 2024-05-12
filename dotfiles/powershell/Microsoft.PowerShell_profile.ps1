@@ -1,20 +1,42 @@
-################################
-#             别名             #
-################################
+###############################################################################
+#                                                                             #
+#                                  colorscheme                                #
+#                                                                             #
+###############################################################################
 
-Set-Alias -Name ls -Value lsd
+$PSStyle.FileInfo.Directory = "`e[34;1m"
+
+###############################################################################
+#                                                                             #
+#                                    alias                                    #
+#                                                                             #
+###############################################################################
+
+# 移除powershell自带的别名
+Remove-Alias -Name "sl" -Force # 默认是Set-Location
+Remove-Alias -Name "where" -Force # 默认是Where-Object，移除后使用系统自带的where程序
+
+Set-Alias -Name whereis -Value Get-Command
+Set-Alias -Name which -Value Get-Command
+
 Set-Alias -Name lg -Value lazygit
 Set-Alias -Name ld -Value lazydocker
 
-################################
-#             函数             #
-################################
+Set-Alias -Name jdks -Value "$Env:USERPROFILE/space/scripts/jdk_select.ps1"
+Set-Alias -Name mvns -Value "$Env:USERPROFILE/space/scripts/maven_select.ps1"
 
-function ll { lsd -l }
-function la { lsd -a }
-function lla { lsd -al }
+###############################################################################
+#                                                                             #
+#                                  function                                   #
+#                                                                             #
+###############################################################################
 
-function getenv { Get-ChildItem Env: }
+function ll { Get-ChildItem | Format-Table -HideTableHeaders -AutoSize }
+function lla {
+    Get-ChildItem -Attributes Archive,Compressed,Device,Directory,Encrypted,Hidden,IntegrityStream,Normal,NoScrubData,NotContentIndexed,Offline,ReadOnly,ReparsePoint,SparseFile,System,Temporary | Format-Table -HideTableHeaders -AutoSize 
+}
+
+function env { Get-ChildItem Env: }
 
 # 使用管理员方式打开
 function sudo {
@@ -27,52 +49,35 @@ function sudo {
 }
 
 # 管理员方式打开cmd
-function sudocmd { sudo wt cmd }
+function sudocmd { sudo alacritty.exe --command cmd }
 
 # 管理员方式打开powershell
-function sudopwsh { sudo wt pwsh }
+function sudopwsh { sudo alacritty.exe --command pwsh }
 
-# 管理员方式使用nvim编辑文件
-function sudonvim {
-	param (
-		[string]$Path
-	)
-	sudo wt "pwsh -c nvim $Path"
-}
+###############################################################################
+#                                                                             #
+#                                   keymap                                    #
+#                                                                             #
+###############################################################################
 
-################################
-#          按键定义            #
-################################
+Set-PSReadLineOption -EditMode Emacs # 可选的，选择编辑模式
 
-# 自定义按键
-Set-PSReadLineKeyHandler -key "Alt+i" -Function AcceptSuggestion			# 接受补全建议
-Set-PSReadLineKeyHandler -key "Alt+o" -Function AcceptNextSuggestionWord	# 接受一个单词的补全建议
-# 模拟linux终端下的默认快捷键
-Set-PSReadLineKeyHandler -Key "Ctrl+a" -Function BeginningOfLine			# 行首
-Set-PSReadLineKeyHandler -Key "Ctrl+e" -Function EndOfLine					# 行尾
-Set-PSReadLineKeyHandler -Key "Ctrl+f" -Function ForwardChar				# 向前移动一个字符
-Set-PSReadLineKeyHandler -Key "Ctrl+b" -Function BackwardChar				# 向后移动一个字符
-Set-PSReadLineKeyHandler -Key "Alt+f" -Function ForwardWord					# 向前移动一个单词
-Set-PSReadLineKeyHandler -Key "Alt+b" -Function BackwardWord				# 向后移动一个单词
-Set-PSReadLineKeyHandler -Key "Ctrl+k" -Function KillLine					# 删除到行尾
-Set-PSReadLineKeyHandler -Key "Ctrl+u" -Function BackwardKillLine			# 删除到行首
-Set-PSReadLineKeyHandler -Key "Ctrl+n" -ScriptBlock {						# 上一个历史记录
-	[Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchForward()
-    [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
-}
-Set-PSReadLineKeyHandler -Key 'Ctrl+p' -ScriptBlock {						# 下一个历史记录
-    [Microsoft.PowerShell.PSConsoleReadLine]::HistorySearchBackward()
-    [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
-}
-
-################################
-#          环境变量            #
-################################
+###############################################################################
+#                                                                             #
+#                                     env                                     #
+#                                                                             #
+###############################################################################
 
 # fzf选项配置
 Set-Item -Path 'Env:\FZF_DEFAULT_OPTS' -Value "--height 95% --layout=reverse --prompt='❯ ' --info=inline:' ' --preview-window=down:60%"
 # lf配置
 Set-Item -Path 'Env:\EDITOR' -Value "nvim"
+
+###############################################################################
+#                                                                             #
+#                                    plugin                                   #
+#                                                                             #
+###############################################################################
 
 # 安装 z 插件
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
