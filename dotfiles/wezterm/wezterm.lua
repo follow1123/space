@@ -6,11 +6,7 @@ local act = wezterm.action
 
 local conf = {}
 
---#############################################################################
---#                                                                           #
---#                                 option                                    #
---#                                                                           #
---#############################################################################
+--############################ option
 
 conf.color_scheme = "SoftServer"                                -- 主题
 conf.use_fancy_tab_bar = false                                  -- tab样式
@@ -63,11 +59,7 @@ if local_config_state then
     end
   end
 end
---#############################################################################
---#                                                                           #
---#                                 keymap                                    #
---#                                                                           #
---#############################################################################
+--############################ keymap
 
 -- leader key alt+x
 conf.leader = { key = "x", mods = "ALT", timeout_milliseconds = 1000 }
@@ -140,6 +132,7 @@ conf.key_tables = {
     { key = "k",      action = act.AdjustPaneSize { "Up", 1 } },
     { key = "l",      action = act.AdjustPaneSize { "Right", 1 } },
     { key = "Escape", action = "PopKeyTable" },
+    { key = "[",      action = "PopKeyTable", mods = "CTRL" },
     { key = "Enter",  action = "PopKeyTable" },
   },
   move_tab = {
@@ -148,15 +141,12 @@ conf.key_tables = {
     { key = "k",      action = act.MoveTabRelative(1) },
     { key = "l",      action = act.MoveTabRelative(1) },
     { key = "Escape", action = "PopKeyTable" },
+    { key = "[",      action = "PopKeyTable", mods = "CTRL" },
     { key = "Enter",  action = "PopKeyTable" },
   }
 }
 
---#############################################################################
---#                                                                           #
---#                                   mouse                                   #
---#                                                                           #
---#############################################################################
+--############################ mouse
 
 conf.mouse_bindings = {
   { -- 禁用鼠标左键两下选中word时复制
@@ -171,11 +161,7 @@ conf.mouse_bindings = {
   },
 }
 
---#############################################################################
---#                                                                           #
---#                                  events                                   #
---#                                                                           #
---#############################################################################
+--############################ events
 
 local color_red1 = "#f7768e"
 local color_blue1 = "#7dcfff"
