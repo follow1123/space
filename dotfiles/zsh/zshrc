@@ -91,7 +91,7 @@ alias hb='systemctl hibernate'
 alias sp='systemctl suspend'
 alias man='~/space/scripts/viman.sh'
 
-alias vim='nvim -u $NVIM_CONF_HOME/init_min.lua'
+alias vim='nvim -u $XDG_CONFIG_HOME/nvim/init_noplugin.lua'
 
 #-----------------------------------------按键绑定-----------------------------------------#
 
