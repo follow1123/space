@@ -96,9 +96,14 @@ sudo ln -s ~/.config/nvim /root/.config
 ```
 ## lazygit
 
+* 参考官方仓库[安装方式](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation)
+
 ```bash
 # 安装
-go install github.com/jesseduffield/lazygit@latest
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
 
 # 配置
 ln -s ~/space/dotfiles/lazygit ~/.config
