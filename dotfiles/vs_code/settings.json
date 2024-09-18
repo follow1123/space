@@ -1,153 +1,51 @@
 {
   //################################################################ vim插件配置
   "extensions.autoUpdate": false,
-  "vim.normalModeKeyBindings": [
-      { // 打开which key 面板
-          "before": [ "<space>" ],
-          "commands": [ "whichkey.show" ]
-      }
-  ],
-  "vim.visualModeKeyBindings": [
-      { // which key
-          "before": [ "<space>" ],
-          "commands": [ "whichkey.show" ]
-      },
-  ],
-  //################################################################ insert模式
-  "vim.insertModeKeyBindingsNonRecursive": [ 
-      { // 显示补全弹窗
-        "before": [ "<C-p>" ],
-        "commands": [ "editor.action.triggerSuggest" ]
-      },
-  ],
-
-  //################################################################ visual模式
-  "vim.visualModeKeyBindingsNonRecursive": [
-      { // visual模式下tab        
-        "before": [ ">" ],
-        "after": [ ">", "g", "v" ]
-      },
-      {
-        "before": [ "<" ],
-        "after": [ "<", "g", "v"]
-      },
-      // {
-      //   "before": [ "=" ],
-      //   "commands": [ "editor.action.formatSelection" ]
-      // }
-  ],
-  //################################################################ normal模式
-  "vim.normalModeKeyBindingsNonRecursive": [
-      { // 移动窗口快捷键
-          "before": [ "<C-h>" ],
-          "after": [ "<C-w>", "h" ]
-      },
-      {
-          "before": [ "<C-l>" ],
-          "after": [ "<C-w>", "l" ]
-      },
-      {
-          "before": [ "<C-j>" ],
-          "after": [ "<C-w>", "j" ]
-      },
-      {
-          "before": [ "<C-k>" ],
-          "after": [ "<C-w>", "k" ]
-      },
-      { // 窗口大小
-          "before": [ "<C-up>" ],
-          "after": [ "<C-w>", "+" ]
-      },
-      {
-          "before": [ "<C-down>" ],
-          "after": [ "<C-w>", "-" ]
-      },
-      {
-          "before": [ "<C-left>" ],
-          "after": [ "<C-w>", "<" ]
-      },
-      {
-          "before": [ "<C-right>" ],
-          "after": [ "<C-w>", ">" ]
-      },
-      { // 向上或向下移动时光标始终保持在中间
-          "before": [ "<C-d>" ],
-          "after": [ "<C-d>", "z", "z" ]
-      },
-      {
-          "before": [ "<C-u>" ],
-          "after": [ "<C-u>", "z", "z" ]
-      },
-      {
-          "before": [ "n" ],
-          "after": [ "n", "z", "z", ]
-      },
-      {
-          "before": [ "N" ],
-          "after": [ "N", "z", "z", ]
-      },
-      { // esc取消高亮
-          "before": [ "<Esc>" ],
-          "commands": [ ":nohlsearch", "<Esc>"]
-      },
-      //################################################################ git
-      { // Git 下一个change
-          "before": [ "]", "c" ],
-          "commands": [
-              "workbench.action.editor.nextChange",
-              "editor.action.dirtydiff.next"
-          ]
-      },
-      { // Git 上一个change
-          "before": [ "[", "c" ],
-          "commands": [
-              "workbench.action.editor.previousChange",
-              "editor.action.dirtydiff.previous"
-          ]
-      },
-      //################################################################ 代码诊断
-      { // 下一个错误
-        "before": [ "]", "d" ],
-        "commands": [ "editor.action.marker.next" ]
-      },
-      { // 上一个错误
-        "before": [ "[", "d" ],
-        "commands": [ "editor.action.marker.prev" ]
-      },
-      //################################################################ 代码跳转
-      { // 跳转到定义
-        "before": [ "g", "d" ],
-        "commands": [ "editor.action.revealDefinition" ]
-      },
-      { // 跳转到类型定义
-        "before": [ "g", "D" ],
-        "commands": [ "editor.action.goToTypeDefinition" ]
-      },
-      { // 跳转到实现
-        "before": [ "g", "i" ],
-        "commands": [ "editor.action.goToImplementation" ]
-      },
-      { // 跳转到引用
-        "before": [ "g", "r" ],
-        "commands": [ "editor.action.goToReferences" ]
-      },
-      { // 显示变量或函数签名
-        "before": [ "K" ],
-        "commands": [ "editor.action.showHover" ]
-      },
-      { // 打开连接
-        "before": [ "g", "l" ],
-        "commands": [ "editor.action.openLink" ]
-      },
-      //################################################################ 标签
-      { // 切换到下一个标签
-        "before": [ "L" ],
-        "commands": [ "workbench.action.nextEditorInGroup" ]
-      },
-      { // 切换到上一个标签
-        "before": [ "H" ],
-        "commands": [ "workbench.action.previousEditorInGroup" ]
-      },
-  ],
   "window.menuBarVisibility": "toggle",
+  "vim.insertModeKeyBindingsNonRecursive": [ 
+    // 显示补全弹窗
+    { "before": [ "<C-k>" ], "commands": [ "editor.action.triggerSuggest" ] },
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+      // 移动窗口快捷键
+      { "before": [ "<C-h>" ], "after": [ "<C-w>", "h" ] },
+      { "before": [ "<C-l>" ], "after": [ "<C-w>", "l" ] },
+      { "before": [ "<C-j>" ], "after": [ "<C-w>", "j" ] },
+      { "before": [ "<C-k>" ], "after": [ "<C-w>", "k" ] },
+      // 窗口大小
+      { "before": [ "<C-up>" ], "after": [ "<C-w>", "+" ] },
+      { "before": [ "<C-down>" ], "after": [ "<C-w>", "-" ] },
+      { "before": [ "<C-left>" ], "after": [ "<C-w>", "<" ] },
+      { "before": [ "<C-right>" ], "after": [ "<C-w>", ">" ] },
+      // 向上或向下移动时光标始终保持在中间
+      { "before": [ "<C-d>" ], "after": [ "<C-d>", "z", "z" ] },
+      { "before": [ "<C-u>" ], "after": [ "<C-u>", "z", "z" ] },
+      { "before": [ "n" ], "after": [ "n", "z", "z", ] },
+      { "before": [ "N" ], "after": [ "N", "z", "z", ] },
+      { "before": [ "<Esc>" ], "commands": [ ":nohlsearch", "<Esc>"] },
+      { "before": [ "<C-[>" ], "commands": [ ":nohlsearch", "<C-[>"] },
+      //################################################################ git
+      { "before": [ "]", "c" ], "commands": [ "workbench.action.editor.nextChange", "editor.action.dirtydiff.next" ] },
+      { "before": [ "[", "c" ], "commands": [ "workbench.action.editor.previousChange", "editor.action.dirtydiff.previous" ] },
+      //################################################################ 代码诊断
+      { "before": [ "]", "d" ], "commands": [ "editor.action.marker.next" ] },
+      { "before": [ "[", "d" ], "commands": [ "editor.action.marker.prev" ] },
+      //################################################################ 代码跳转
+      { "before": [ "g", "d" ], "commands": [ "editor.action.revealDefinition" ] },
+      { "before": [ "g", "D" ], "commands": [ "editor.action.goToTypeDefinition" ] },
+      { "before": [ "g", "i" ], "commands": [ "editor.action.goToImplementation" ] },
+      { "before": [ "g", "r" ], "commands": [ "editor.action.goToReferences" ] },
+      { "before": [ "K" ], "commands": [ "editor.action.showHover" ] },
+      { "before": [ "g", "x" ], "commands": [ "editor.action.openLink" ] },
+      //################################################################ tab
+      { "before": [ "<M-n>" ], "commands": [ "workbench.action.nextEditorInGroup" ] },
+      { "before": [ "<M-p>" ], "commands": [ "workbench.action.previousEditorInGroup" ] },
+      { "before": [ "<leader>", "g", "r" ], "commands": [ "git.revertSelectedRanges" ] },
+      { "before": [ "<leader>", "g", "R" ], "commands": [ "git.clean" ] },
+      { "before": [ "<leader>", "f", "f" ], "commands": [ "search.action.openEditor" ] },
+      { "before": [ "<leader>", "l", "d" ], "commands": [ "workbench.actions.view.problems" ] },
+      { "before": [ "<leader>", "c", "f" ], "commands": [ "editor.action.formatSelection" ] },
+      { "before": [ "<leader>", "p", "f" ], "commands": [ "workbench.action.openRecent" ] },
+      { "before": [ "<leader>", "f", "a" ], "commands": [ "harpoon.markfile" ] },
+  ],
 }
