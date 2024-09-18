@@ -4,14 +4,9 @@ $PSStyle.FileInfo.Directory = "`e[34;1m"
 
 ############################### function
 
-function ls { Get-ChildItem | Format-Table -HideTableHeaders -AutoSize }
-function ll { Get-ChildItem | Format-Table -HideTableHeaders -AutoSize }
-
 function lla {
     Get-ChildItem -Attributes Archive,Compressed,Device,Directory,Encrypted,Hidden,IntegrityStream,Normal,NoScrubData,NotContentIndexed,Offline,ReadOnly,ReparsePoint,SparseFile,System,Temporary | Format-Table -HideTableHeaders -AutoSize 
 }
-
-function env { Get-ChildItem Env: }
 
 # 使用管理员方式打开
 function sudo {
@@ -33,7 +28,6 @@ function sudopwsh { sudo alacritty.exe --command pwsh }
 
 # 移除powershell自带的别名
 Remove-Alias -Name "sl" -Force # 默认是Set-Location
-Remove-Alias -Name "ls" -Force # 
 Remove-Alias -Name "where" -Force # 默认是Where-Object，移除后使用系统自带的where程序
 
 Set-Alias -Name whereis -Value Get-Command
