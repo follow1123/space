@@ -149,11 +149,11 @@ conf.key_tables = {
 --############################ mouse
 
 conf.mouse_bindings = {
-  { -- 禁用鼠标左键两下选中word时复制
-    event = { Up = { streak = 2, button = "Left" } },
-    mods = "NONE",
-    action = act.Nop,
-  },
+  -- { -- 禁用鼠标左键两下选中word时复制
+  --   event = { Up = { streak = 2, button = "Left" } },
+  --   mods = "NONE",
+  --   action = act.Nop,
+  -- },
   { -- 禁用鼠标左键三下选中line时复制
     event = { Up = { streak = 3, button = "Left" } },
     mods = "NONE",
