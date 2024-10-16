@@ -1,3 +1,3 @@
 @echo off
 
-nvim -u %LOCALAPPDATA%\nvim\init_noplugin.lua %*
+nvim -u %LOCALAPPDATA%\nvim\vimrc %*
