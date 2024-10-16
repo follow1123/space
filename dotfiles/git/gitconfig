@@ -1,16 +1,13 @@
-[user]
-    name = yf
-    email = ---
 [credential]
     helper = store
 
 [credential "helperselector"]
     selected = manager-ui
 [core]
-    editor = nvim -u $LOCALAPPDATA\\\\nvim\\\\init_noplugin.lua
+    editor = nvim
 
 [merge]
     tool = vimdiff
 
 [mergetool "vimdiff"]
-    cmd = nvim -u '$LOCALAPPDATA\\\\nvim\\\\init_noplugin.lua' -d $BASE $LOCAL $MERGED $REMOTE -c 'wincmd c' -c 'wincmd l' -c 'normal ]c'
+    cmd = nvim -d $BASE $LOCAL $MERGED $REMOTE -c 'wincmd c' -c 'wincmd l' -c 'normal ]c'
