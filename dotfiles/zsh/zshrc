@@ -53,13 +53,10 @@ export WORDCHARS=${WORDCHARS/\//}
 
 export SYSTEMD_EDITOR=/usr/local/bin/nvim
 #-----------------------------------------配置导入-----------------------------------------#
-# zsh插件导入
-if [ -d  ~/.local/share/zsh ]; then
-	# 语法高亮
-	[ -d ~/.local/share/zsh/zsh-syntax-highlighting ] && source ~/.local/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-	# 自动提示
-	[ -d ~/.local/share/zsh/zsh-autosuggestions ] && source ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+
+# zsh-autosuggestions插件加载
+[ -d /usr/share/zsh-autosuggestions ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # 目录跳转
 if command -v "zoxide" >/dev/null 2>&1; then
 	eval "$(zoxide init zsh)"
@@ -69,21 +66,18 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #-----------------------------------------别名-----------------------------------------#
-alias ls='ls -hF --color'
+alias ls='ls -lhF --color'
 alias lg='lazygit'
 
-# alias s='startx'
-alias ll='ls -l'
 alias la='ls -A'
 alias lla='ls -Al'
 alias grep="grep --color=auto"
-alias n='neofetch'
 
 function vman() {
-	nvim -u $XDG_CONFIG_HOME/nvim/init_noplugin.lua +"Man $1" -c "wincmd o"
+	nvim -u $HOME/.config/nvim/vimrc "Man $1" -c "wincmd o"
 }
 
-alias vim='nvim -u $XDG_CONFIG_HOME/nvim/init_noplugin.lua'
+alias vim='nvim -u $HOME/.config/nvim/vimrc'
 
 #-----------------------------------------按键绑定-----------------------------------------#
 

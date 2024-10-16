@@ -6,11 +6,10 @@
 [credential "helperselector"]
 	selected = manager-ui
 [core]
-	editor = nvim -u $XDG_CONFIG_HOME/nvim/init_noplugin.lua
+	editor = nvim
 
 [merge]
 	tool = vimdiff
 
 [mergetool "vimdiff"]
-	cmd = nvim -u '$XDG_CONFIG_HOME/nvim/init_noplugin.lua' -d $BASE $LOCAL $MERGED $REMOTE -c 'wincmd c' -c 'wincmd l' -c 'normal ]c'
-	# cmd = nvim -u 'C:/Users/yf/AppData/Local/nvim/init_min.lua' -d $LOCAL $BASE $REMOTE
+	cmd = nvim -d $BASE $LOCAL $MERGED $REMOTE -c 'wincmd c' -c 'wincmd l' -c 'normal ]c'

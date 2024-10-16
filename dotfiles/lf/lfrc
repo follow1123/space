@@ -22,8 +22,8 @@ cmd explorer_open &{{ nemo . }}
 
 cmd fzf_dir ${{ lf -remote "send $id cd '$(fd -t d | fzf)'" }}
 
-cmd edit_lf_config $nvim -u $XDG_CONFIG_HOME/nvim/init_noplugin.lua.lua $HOME/.config/lf/lfrc
-cmd edit_hosts ${{ sudo nvim -u $XDG_CONFIG_HOME/nvim/init_noplugin.lua /etc/hosts }}
+cmd edit_lf_config $nvim $HOME/.config/lf/lfrc
+cmd edit_hosts ${{ sudo nvim  /etc/hosts }}
 cmd lazygit $lazygit
 
 # 文件复制操作
@@ -44,7 +44,7 @@ map r
 map '"'
 map e
 
-map i $nvim -u /home/yf/.config/nvim/init_noplugin.lua $f
+map i $nvim $f
 
 map e1 edit_lf_config
 map e9 edit_hosts

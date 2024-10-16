@@ -8,20 +8,13 @@
 # 安装
 sudo apt install git -y
 # 配置
-ln -s ~/space/dotfiles/git/gitconfig ~/.gitconfig
+cp ~/space/dotfiles/git/gitconfig ~/.gitconfig
 ```
 ## zsh
 
 ```bash
-# 插件下载
-mkdir -p ~/.local/share/zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.local/share/zsh/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.local/share/zsh/zsh-syntax-highlighting
-# 如果有问题执行以下代码切换到固定的commit
-cd ~/.local/share/zsh/zsh-autosuggestions && git checkout a411ef3e0992d4839f0732ebeb9823024afaaaa8
-cd ~/.local/share/zsh/zsh-syntax-highlighting && git checkout 754cefe0181a7acd42fdcb357a67d0217291ac47
 # 安装
-sudo apt install zsh -y
+sudo apt install zsh zsh-autosuggestions -y
 
 # 配置
 ln -s ~/space/dotfiles/zsh/zshrc ~/.zshrc
