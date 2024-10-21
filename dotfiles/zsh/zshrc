@@ -66,7 +66,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #-----------------------------------------别名-----------------------------------------#
-alias ls='ls -lhF --color'
+alias ls='ls -hF --color'
 alias lg='lazygit'
 
 alias la='ls -A'
