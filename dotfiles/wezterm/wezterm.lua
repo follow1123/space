@@ -10,9 +10,10 @@ local conf = {}
 
 conf.color_scheme = "SoftServer"                                -- 主题
 conf.use_fancy_tab_bar = false                                  -- tab样式
--- conf.hide_tab_bar_if_only_one_tab = true                        -- 只有一个tab时不显示tab栏
-conf.window_background_opacity = 0.95                           -- 背景透明度
-conf.font = wezterm.font("JetBrainsMono Nerd Font")             -- 字体
+conf.window_background_opacity = 0.9                            -- 背景透明度
+-- conf.font = wezterm.font("JetBrainsMono Nerd Font")             -- 字体
+-- conf.font = wezterm.font("Cascadia Code")                       -- 字体
+conf.font = wezterm.font("CaskaydiaCove Nerd Font")             -- 字体
 conf.font_size = 12                                             -- 字体大小
 conf.default_cursor_style = "BlinkingBar"                       -- 光标样式
 conf.cursor_blink_rate = 700                                    -- 光标闪烁频率
@@ -22,7 +23,7 @@ conf.window_decorations = "INTEGRATED_BUTTONS|RESIZE"           -- 不显示系�
 conf.integrated_title_button_alignment = "Right"                -- 按钮位置
 conf.integrated_title_button_color = "Auto"                     -- 按钮颜色
 conf.integrated_title_button_style = "Windows"                  -- 按钮风格
-conf.integrated_title_buttons = { "Close" }                     -- 按钮功能位置
+conf.integrated_title_buttons = { "Hide", "Close" }             -- 按钮功能位置
 conf.default_prog = { "pwsh" }                                  -- 默认shell
 conf.scrollback_lines = 3000                                    -- 保持3000行历史记录
 conf.default_workspace = "main"                                 -- 默认工作区名称
@@ -40,8 +41,7 @@ conf.window_padding = {                                         -- 内容边距
   top = 0, bottom = 0,
 }
 conf.inactive_pane_hsb = {                                      -- 非活动窗口样式
-  saturation = 0.24,
-  brightness = 0.5
+  brightness = 0.6
 }
 conf.launch_menu = {
   { label = "PowerShell Core", args = { "pwsh" } },
@@ -50,7 +50,8 @@ conf.launch_menu = {
   { label = "Windows Subsystem For Linux", args = { "wsl", "--cd", "~" }},
   { label = "Windows Subsystem For Linux(root)", args = { "wsl", "--cd", "~", "-u", "root" }},
 }
--- powershell -Command { Start-Process -FilePath pwsh -Verb RunAs }
+
+-- 加载本地启动配置，在当前目录下的local_config.lua内
 if local_config_state then
   local local_launch_menu = local_config.launch_menu
   if local_launch_menu then
@@ -59,6 +60,32 @@ if local_config_state then
     end
   end
 end
+
+local choices_launch_menu = {};
+for _, value in ipairs(conf.launch_menu) do
+  table.insert(choices_launch_menu, { label = value.label, id = table.concat(value.args, " ") })
+end
+
+-- 选择程序进行分屏
+local splitProgram = function (direction)
+  if not direction then
+    direction = "Right"
+  end
+  return act.InputSelector {
+    title = "Select Program To Split",
+    fuzzy = true,
+    choices = choices_launch_menu,
+    action =  wezterm.action_callback(function(_, pane, id, label)
+      if not label and not id then return end
+      local args = {}
+      for word in string.gmatch(id, "%S+") do
+        table.insert(args, word)
+      end
+      pane:split { direction = direction, args = args }
+    end)
+  }
+end
+
 --############################ keymap
 
 -- leader key alt+x
@@ -70,27 +97,22 @@ conf.keys = {
   -- Pane keybindings
   { key = "s",        mods = "LEADER",       action = act.SplitVertical { domain = "CurrentPaneDomain" } },
   { key = "v",        mods = "LEADER",       action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-
+  { key = "q",        mods = "LEADER",       action = act.CloseCurrentPane { confirm = true } },
+  { key = "S",        mods = "LEADER",       action = splitProgram("Bottom") },
+  { key = "V",        mods = "LEADER",       action = splitProgram() },
   { key = "h",        mods = "LEADER",       action = act.ActivatePaneDirection("Left") },
   { key = "l",        mods = "LEADER",       action = act.ActivatePaneDirection("Right") },
   { key = "j",        mods = "LEADER",       action = act.ActivatePaneDirection("Down") },
   { key = "k",        mods = "LEADER",       action = act.ActivatePaneDirection("Up") },
 
-  { key = "l",        mods = "LEADER|ALT",   action = act.ActivatePaneDirection("Right") },
-  { key = "h",        mods = "LEADER|ALT",   action = act.ActivatePaneDirection("Left") },
-  { key = "j",        mods = "LEADER|ALT",   action = act.ActivatePaneDirection("Down") },
-  { key = "k",        mods = "LEADER|ALT",   action = act.ActivatePaneDirection("Up") },
-
   { key = "z",        mods = "LEADER",       action = act.TogglePaneZoomState },
-  { key = "j",        mods = "LEADER|SHIFT", action = act.RotatePanes "Clockwise" },
   { key = "r",        mods = "LEADER",       action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
+  { key = "R",        mods = "LEADER",       action = act.ActivateKeyTable { name = "rotate_pane", one_shot = false } },
 
   -- Tab keybindings
   { key = "n",        mods = "LEADER",       action = act.SpawnTab("CurrentPaneDomain") },
   { key = "n",        mods = "LEADER|ALT",   action = act.SpawnTab("CurrentPaneDomain") },
 
-  { key = "[",        mods = "LEADER",       action = act.ActivateTabRelative(-1) },
-  { key = "]",        mods = "LEADER",       action = act.ActivateTabRelative(1) },
   { key = "Tab",      mods = "CTRL|SHIFT",   action = act.ActivateTabRelative(-1) },
   { key = "Tab",      mods = "CTRL",         action = act.ActivateTabRelative(1) },
   { key = "t",        mods = "LEADER",       action = act.ShowTabNavigator },
@@ -131,21 +153,28 @@ conf.key_tables = {
     { key = "j",      action = act.AdjustPaneSize { "Down", 1 } },
     { key = "k",      action = act.AdjustPaneSize { "Up", 1 } },
     { key = "l",      action = act.AdjustPaneSize { "Right", 1 } },
-    { key = "Escape", action = "PopKeyTable" },
-    { key = "[",      action = "PopKeyTable", mods = "CTRL" },
-    { key = "Enter",  action = "PopKeyTable" },
+  },
+  rotate_pane = {
+    { key = "j",      action = act.RotatePanes("Clockwise") },
+    { key = "k",      action = act.RotatePanes("CounterClockwise") },
   },
   move_tab = {
     { key = "h",      action = act.MoveTabRelative(-1) },
     { key = "j",      action = act.MoveTabRelative(-1) },
     { key = "k",      action = act.MoveTabRelative(1) },
     { key = "l",      action = act.MoveTabRelative(1) },
-    { key = "Escape", action = "PopKeyTable" },
-    { key = "[",      action = "PopKeyTable", mods = "CTRL" },
-    { key = "Enter",  action = "PopKeyTable" },
   }
 }
 
+-- 添加退出键
+for _, value in pairs(conf.key_tables) do
+  table.insert(value, { key = "Escape", action = "PopKeyTable" })
+  table.insert(value, { key = "[",      action = "PopKeyTable", mods = "CTRL" })
+  table.insert(value, { key = "Enter", action = "PopKeyTable" })
+end
+
+
+-- ct.RotatePanes "Clockwise"
 --############################ mouse
 
 conf.mouse_bindings = {
@@ -179,7 +208,7 @@ wezterm.on("update-status", function(window)
 
   if window:active_key_table() then
     stat = window:active_key_table()
-    stat_color = color_blue1
+    stat_color = colo_blue1
   end
 
   if window:leader_is_active() then

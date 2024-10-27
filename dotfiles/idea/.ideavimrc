@@ -35,8 +35,8 @@ nmap N 'nN'[v:searchforward]
 nmap <esc> :noh<cr><esc>
 nmap <C-[> :noh<cr><esc>
 " 离开insert模式后切换输入法为英文模式
-inoremap <esc> <esc>:!im_select 1<cr>
-inoremap <C-[> <C-[>:!im_select 1<cr>
+inoremap <esc> <esc>:!ims 1<cr>
+inoremap <C-[> <C-[>:!ims 1<cr>
 vmap <M-j> :m '>+1<cr>gv=gv" 上下移动当前行
 vmap <M-k> :m '<-2<cr>gv=gv
 " 翻页时保持光标居中
