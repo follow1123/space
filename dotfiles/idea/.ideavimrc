@@ -1,8 +1,8 @@
-"#################################################################### 插件 plugins
+" plugins -------------------------------------------------------------------------
 Plug 'machakann/vim-highlightedyank' " 高亮复制的文本
 Plug 'preservim/nerdtree'            " 目录树插件
 
-"#################################################################### 配置 options
+" options -------------------------------------------------------------------------
 set clipboard+=unnamed " 共享系统剪贴板
 set scrolloff=4        " 垂直滚动是保持上下有4行间距
 set sidescrolloff=8    " 水平滚动时保持左右有8列间距
@@ -19,7 +19,7 @@ let g:NERDTreeMapToggleZoom = '<F11>'
 let g:highlightedyank_highlight_duration = "100" " 复制时高亮插件配置
 let mapleader=" "                        " leader键
 
-"#################################################################### 按键映射 keymap
+" keymap --------------------------------------------------------------------------
 " 禁用翻页键
 nmap <C-f> <nop>
 nmap <C-b> <nop>
@@ -35,10 +35,8 @@ nmap N 'nN'[v:searchforward]
 nmap <esc> :noh<cr><esc>
 nmap <C-[> :noh<cr><esc>
 " 离开insert模式后切换输入法为英文模式
-inoremap <esc> <esc>:!ims 1<cr>
-inoremap <C-[> <C-[>:!ims 1<cr>
-vmap <M-j> :m '>+1<cr>gv=gv" 上下移动当前行
-vmap <M-k> :m '<-2<cr>gv=gv
+inoremap <esc> <esc>:99999999!ims 1<cr>
+inoremap <C-[> <C-[>:99999999!ims 1<cr>
 " 翻页时保持光标居中
 nmap <C-d> <C-d>zz
 nmap <C-u> <C-u>zz
@@ -46,7 +44,7 @@ nmap <C-u> <C-u>zz
 nmap n nzz
 nmap N Nzz
 
-"#################################################################### idea内置功能扩展
+" idea actions -------------------------------------------------------------------
 " 左右切换tab
 nmap <M-n> <Action>(NextTab)
 nmap <M-p> <Action>(PreviousTab)
@@ -64,10 +62,10 @@ nmap <M-e> <Action>(CommentByLineComment)
 vmap <M-e> <Action>(CommentByLineComment)<esc>
 nmap gx <Action>(GotoDeclaration)
 
-"#################################################################### buffer
+" buffer -------------------------------------------------------------------------
 nmap <leader>bf <Action>(RecentFiles)
 
-"#################################################################### 文件 file
+" file --------------------------------------------------------------------------
 " 搜索文本
 nmap <leader>ff <Action>(FindInPath)
 " 在nerdtree内定位当前文件
@@ -80,7 +78,7 @@ nmap <M-k> <Action>(GotoHarpoon2)
 nmap <M-l> <Action>(GotoHarpoon3)
 nmap <M-;> <Action>(GotoHarpoon4)
 
-"#################################################################### git
+" git ---------------------------------------------------------------------------
 nmap <leader>gr <Action>(Vcs.RollbackChangedLines)
 vmap <leader>gr <Action>(Vcs.RollbackChangedLines)
 nmap <leader>gR <Action>(ChangesView.Revert)
@@ -89,7 +87,13 @@ nmap <leader>gb <Action>(Annotate)
 nmap ]c <Action>(VcsShowNextChangeMarker)
 nmap [c <Action>(VcsShowPrevChangeMarker)
 
-"#################################################################### 语言服务相关 lsp
+" code --------------------------------------------------------------------------
+" 格式化
+nmap <leader>cf <Action>(ReformatCode)
+vmap <leader>cf <Action>(ReformatCode)
+nmap <F2> <Action>(RenameElement)
+nmap <leader>cr <Action>(RunClass)
+nmap <leader>cd <Action>(DebugClass)
 " 代码跳转
 nmap gd <Action>(GotoDeclaration)
 nmap gD <Action>(GotoTypeDeclaration)
@@ -108,21 +112,13 @@ nmap [r <Action>(GotoPrevElementUnderCaretUsage)
 nmap [d <Action>(GotoPreviousError)
 nmap ]d <Action>(GotoNextError)
 
-"#################################################################### code
-" 格式化
-nmap <leader>cf <Action>(ReformatCode)
-vmap <leader>cf <Action>(ReformatCode)
-nmap <F2> <Action>(RenameElement)
-nmap <leader>cr <Action>(RunClass)
-nmap <leader>cd <Action>(DebugClass)
-
-"#################################################################### project
+" project -----------------------------------------------------------------------
 nmap <leader>pf <Action>($LRU)
 nmap <leader>po <Action>(OpenFile)
 nmap <leader>pr <Action>(ChooseRunConfiguration)
 nmap <leader>pd <Action>(ChooseDebugConfiguration)
 nmap <leader>ps <Action>(Stop)
 
-"#################################################################### debug
+" debug -------------------------------------------------------------------------
 nmap <M-b> <Action>(ToggleLineBreakpoint)
 nmap <C-M-b> <Action>(ToggleBreakpointEnabled)
