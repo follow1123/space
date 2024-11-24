@@ -1,0 +1,37 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+          "label": "toggleMaximizedPanel",
+          "command": "${command:workbench.action.toggleMaximizedPanel}",
+          "problemMatcher": []
+        },
+        {
+          "label": "togglePanel",
+          "command": "${command:workbench.action.togglePanel}",
+          "problemMatcher": []
+        },
+        {
+          "label": "runLgAndTogglePanel",
+          "dependsOrder": "sequence",
+          "dependsOn": [
+            "lazygit",
+            "toggleMaximizedPanel",
+            "togglePanel"
+          ]
+        },
+        {
+            "label": "lazygit",
+            "group": "cli",
+            "type": "shell",
+            "command": "lazygit",
+            "presentation": {
+              "close": true, // 执行完成后直接关闭
+              "focus": true  // 执行任务时获取焦点
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -1,0 +1,166 @@
+// Place your key bindings in this file to override the defaultsauto[]
+// 由于vim插件不支持alt快捷键所以在这里配置，还有一部分是其他窗口（非编辑器窗口）的配置，尽量修改为vim移动方式
+[
+  // base ---------------------------------------------------------------------------
+  // 其他窗口按esc后都会返回editor窗口
+  { "key": "escape", "command": "workbench.action.focusActiveEditorGroup", "when": "(sideBarFocus || panelFocus || auxiliaryBarFocus) && !inputFocus" },
+  { "key": "ctrl+[", "command": "workbench.action.focusActiveEditorGroup", "when": "!inputFocus" },
+  { "key": "ctrl+[", "command": "workbench.action.closeQuickOpen", "when": "inQuickOpen" },
+  // 下一个搜索历史，所有输入框
+	{ "key": "ctrl+n", "command": "history.showNext", "when": "!inQuickOpen && (findInputFocussed || searchInputBoxFocus || replaceInputBoxFocus)", },
+  // 上一个搜索历史，所有输入框
+	{ "key": "ctrl+p", "command": "history.showPrevious", "when": "!inQuickOpen && (findInputFocussed || searchInputBoxFocus || replaceInputBoxFocus)", },
+  // 注释 单行注释
+	{ "key": "alt+e", "command": "editor.action.commentLine", "when": "vim.mode == 'Normal' && editorTextFocus && !editorReadonly" },
+  // toggle最大化底部panel
+	{ "key": "ctrl+m", "command": "workbench.action.toggleMaximizedPanel", "when": "panelFocus" },
+  // 关闭编辑窗口
+	{ "key": "alt+q", "command": "workbench.action.closeActiveEditor", "when": "!sideBarFocus && !auxiliaryBarFocus && !panelFocus" },
+  // 关闭左边的窗口
+	{ "key": "alt+q", "command": "workbench.action.closeSidebar", "when": "sideBarVisible && sideBarFocus" },
+  // 关闭右边的辅助窗口
+	{ "key": "alt+q", "command": "workbench.action.closeAuxiliaryBar", "when": "auxiliaryBarVisible && auxiliaryBarFocus" },
+  // 关闭底部的panel
+	{ "key": "alt+q", "command": "workbench.action.closePanel", "when": "panelVisible && panelFocus" },
+  // 关闭git diff预览窗口
+  { "key": "escape", "command": "closeDirtyDiff", "when": "dirtyDiffVisible" },
+  // 关闭代码诊断预览窗口
+  { "key": "escape", "command": "closeMarkersNavigation", "when": "editorFocus && markersNavigationVisible" },
+  // 关闭git diff预览窗口
+  { "key": "q", "command": "closeDirtyDiff", "when": "dirtyDiffVisible" },
+  // 关闭代码诊断预览窗口
+  { "key": "q", "command": "closeMarkersNavigation", "when": "editorFocus && markersNavigationVisible" },
+  // 关闭代码引用框
+  { "key": "q", "command": "closeReferenceSearch", "when": "editorFocus && referenceSearchVisible" },
+  { "key": "ctrl+[", "command": "closeReferenceSearch", "when": "editorFocus && referenceSearchVisible" },
+  // 在选择弹框内，下一个
+  { "key": "ctrl+n", "command": "workbench.action.quickOpenSelectNext", "when": "inQuickOpen" },
+  // 在选择弹框内，上一个
+  { "key": "ctrl+p", "command": "workbench.action.quickOpenSelectPrevious", "when": "inQuickOpen" },
+  // toggle item
+	{ "key": "tab", "command": "list.toggleExpand", "when": "listFocus && !inputFocus", },
+  // vim ----------------------------------------------------------------------------
+  // 注释 多行注释，并返回normal模式
+	{ "key": "alt+e", "when": "vim.mode != 'Normal' && editorTextFocus && !editorReadonly", "command": "runCommands",
+		"args": {
+			"commands": [
+				"editor.action.commentLine",
+				{ "command": "vim.remap", "args": { "after": [ "<Esc>", ], } }
+			],
+		}},
+  // 查找文件
+	{ "key": "alt+f", "command": "workbench.action.quickOpen", "when": "!terminalFocus && !terminalEditorFocus", },
+  // 显示补全弹框
+	{ "key": "ctrl+alt+k", "command": "editor.action.triggerSuggest", "when": "vim.mode == 'Insert' && editorTextFocus && !editorReadonly", },
+  // tab ----------------------------------------------------------------------------
+  { "key": "alt+n", "command": "workbench.action.nextEditorInGroup" },
+  { "key": "alt+p", "command": "workbench.action.previousEditorInGroup" },
+  // 向左移动tab
+  { "key": "ctrl+alt+p", "command": "workbench.action.moveEditorLeftInGroup", "when": "!sideBarFocus && !auxiliaryBarFocus && !panelFocus" },
+  // 向右移动tab
+  { "key": "ctrl+alt+n", "command": "workbench.action.moveEditorRightInGroup", "when": "!sideBarFocus && !auxiliaryBarFocus && !panelFocus" },
+  // code ---------------------------------------------------------------------------
+  // 下一个补全
+  { "key": "ctrl+n", "command": "selectNextSuggestion", "when": "vim.mode == 'Insert' && suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
+  // 上一个补全
+  { "key": "ctrl+p", "command": "selectPrevSuggestion", "when": "vim.mode == 'Insert' && suggestWidgetMultipleSuggestions && suggestWidgetVisible && editorFocus" },
+  // 显示参数信息
+  { "key": "ctrl+k", "command": "editor.action.triggerParameterHints", "when": "vim.mode == 'Insert' && !suggestWidgetVisible" },
+  // code action
+	{ "key": "alt+enter", "command": "editor.action.quickFix", "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly" },
+  // code action 下一个
+  { "key": "ctrl+n", "command": "selectNextCodeAction", "when": "codeActionMenuVisible" },
+  // code action 上一个
+  { "key": "ctrl+p", "command": "selectPrevCodeAction", "when": "codeActionMenuVisible" },
+  // search editor ------------------------------------------------------------------
+  // 搜索框获取焦点
+	{ "key": "ctrl+f", "command": "search.action.openEditor", "when": "inSearchEditor", },
+  // 下一个搜索结果
+  { "key": "ctrl+alt+n", "command": "search.action.focusNextSearchResult", "when": "inSearchEditor" },
+  // 上一个搜索结果
+  { "key": "ctrl+alt+p", "command": "search.action.focusPreviousSearchResult", "when": "inSearchEditor" },
+  // search and replace -------------------------------------------------------------
+  // panel可视，或者panel内显示的不是搜索窗口，则打开搜索窗口
+	{ "key": "alt+3", "command": "workbench.view.search", "when": "!panelVisible || activePanel != 'workbench.view.search'", },
+  // panel可视，并且panel内显示的是搜索窗口，并且panel没有获取焦点，则打开搜索窗口
+	{ "key": "alt+3", "command": "workbench.view.search", "when": "panelVisible && activePanel == 'workbench.view.search' && !panelFocus", },
+  // panel可视，并且panel内显示的是搜索窗口，并且panel获取焦点，则关闭搜索窗口
+	{ "key": "alt+3", "when": "panelVisible && activePanel == 'workbench.view.search' && panelFocus", "command": "workbench.action.closePanel", },
+  // 搜索窗口按esc直接失去焦点
+	{ "key": "ctrl+[", "command": "workbench.action.focusActiveEditorGroup", "when": "panelFocus && focusedView == 'workbench.view.search' && inputFocus", },
+  // window move --------------------------------------------------------------------
+  // diff模式下移动到右边的窗口
+	{ "key": "ctrl+l", "command": "workbench.action.compareEditor.focusPrimarySide", "when": "isInDiffEditor && isInDiffLeftEditor", },
+  // diff模式下移动到左边的窗口
+	{ "key": "ctrl+h", "command": "workbench.action.compareEditor.focusSecondarySide", "when": "isInDiffEditor && isInDiffRightEditor", },
+  // terminal窗口下移动到上面的窗口
+  { "key": "ctrl+k", "command": "vim.remap", "when": "terminalFocus || terminalEditorFocus", "args": { "after": [ "<C-w>", "k" ] } },
+  // git ----------------------------------------------------------------------------
+  // 打开lazygit task
+	{ "key": "alt+6", "command": "runCommands", "when": "taskCommandsRegistered && (!panelVisible || !terminal.visible) && !panelMaximized",
+    "args": {
+      "commands": [
+        { "command": "workbench.action.tasks.runTask", "args": "runLgAndTogglePanel" },
+        "workbench.action.toggleMaximizedPanel",
+      ]
+    }},
+  // 打开lazygit task
+	{ "key": "alt+6", "command": "workbench.action.tasks.runTask", "when": "taskCommandsRegistered && (!panelVisible || !terminal.visible) && panelMaximized", "args": "runLgAndTogglePanel" },
+  // file tree ----------------------------------------------------------------------
+  // 目录树窗口打开时关闭
+	{ "key": "alt+1", "when": "sideBarVisible && explorerViewletVisible && sideBarFocus", "command": "workbench.action.toggleSidebarVisibility", },
+  // 目录树窗口失去焦点时获取焦点
+	{ "key": "alt+1", "when": "sideBarVisible && explorerViewletVisible && !sideBarFocus", "command": "workbench.view.explorer", },
+  // 目录树窗口关闭时打开
+	{ "key": "alt+1", "when": "!sideBarVisible || !explorerViewletVisible", "command": "workbench.view.explorer", },
+  // 复制
+	{ "key": "y y", "command": "filesExplorer.copy", "when": "filesExplorerFocus && !inputFocus" },
+  // 剪切
+	{ "key": "d d", "command": "filesExplorer.cut", "when": "filesExplorerFocus && !inputFocus" },
+  // 粘贴
+	{ "key": "p", "command": "filesExplorer.paste", "when": "filesExplorerFocus && !inputFocus" },
+  // outline ------------------------------------------------------------------------
+  // outline窗口打开时关闭
+	{ "key": "alt+2", "command": "workbench.action.toggleAuxiliaryBar", "when": "auxiliaryBarVisible && view.outline.visible && auxiliaryBarFocus" },
+  // outline窗口失去焦点时获取焦点
+	{ "key": "alt+2", "command": "outline.focus", "when": "auxiliaryBarVisible && view.outline.visible && !auxiliaryBarFocus" },
+  //  outline窗口关闭时打开
+	{ "key": "alt+2", "command": "runCommands", "args": { "commands": [ "workbench.action.toggleAuxiliaryBar", "outline.focus" ] }, "when": "!auxiliaryBarVisible || !view.outline.visible", },
+  // terminal -----------------------------------------------------------------------
+  // toggle terminal
+	{ "key": "alt+4", "command": "workbench.action.terminal.toggleTerminal", "when": "terminal.active" },
+  { "key": "ctrl+alt+f", "command": "workbench.action.terminal.focusFind", "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported" },
+  { "key": "alt+n", "command": "workbench.action.terminal.focusNext", "when": "terminalFocus && terminalCount > 1" },
+  { "key": "alt+p", "command": "workbench.action.terminal.focusPrevious", "when": "terminalFocus && terminalCount > 1" },
+  { "key": "alt+x n", "command": "workbench.action.terminal.new", "when": "terminalFocus" },
+  { "key": "alt+x v", "command": "workbench.action.terminal.split", "when": "terminalFocus" },
+  { "key": "alt+x l", "command": "workbench.action.terminal.focusNextPane", "when": "terminalFocus" },
+  { "key": "alt+x h", "command": "workbench.action.terminal.focusPreviousPane", "when": "terminalFocus" },
+  { "key": "alt+x q", "command": "workbench.action.terminal.kill", "when": "terminalFocus" },
+  { "key": "alt+x o", "command": "workbench.action.terminal.newWithProfile", "when": "terminalFocus" },
+  // disable keys -------------------------------------------------------------------
+	{ "key": "space", "command": "-list.toggleExpand", "when": "sidebarvisible && explorerViewletVisible listFocus && !inputFocus" },
+	{ "key": "ctrl+w", "command": "-workbench.action.closeActiveEditor" },
+	{ "key": "space", "command": "-filesExplorer.openFilePreserveFocus", "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus" },
+	{ "key": "ctrl+w", "command": "-workbench.action.closeGroup", "when": "activeEditorGroupEmpty && multipleEditorGroups" },
+	{ "key": "ctrl+oem_comma", "command": "-workbench.action.openSettings" },
+	{ "key": "ctrl+oem_2", "command": "-editor.action.commentLine", "when": "editorTextFocus && !editorReadonly" },
+	{ "key": "ctrl+oem_5", "command": "-workbench.action.splitEditor" },
+	{ "key": "l", "command": "-list.select", "when": "listFocus && !inputFocus" },
+	{ "key": "ctrl+w", "command": "-workbench.action.terminal.killEditor", "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated && resourceScheme == 'vscode-terminal' || terminalEditorFocus && terminalFocus && terminalProcessSupported && resourceScheme == 'vscode-terminal'" },
+	{ "key": "ctrl+alt+1", "command": "workbench.action.terminal.focus" },
+	{ "key": "ctrl+alt+2", "command": "terminal.focus" },
+	{ "key": "ctrl+oem_period", "command": "-editor.action.quickFix", "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly" },
+	{ "key": "ctrl+j", "command": "-workbench.action.togglePanel" },
+	{ "key": "ctrl+p", "command": "-workbench.action.quickOpen" },
+	{ "key": "ctrl+e", "command": "-workbench.action.quickOpen" },
+  { "key": "shift+escape", "command": "-closeDirtyDiff", "when": "dirtyDiffVisible" },
+  { "key": "shift+escape", "command": "-closeMarkersNavigation", "when": "editorFocus && markersNavigationVisible" },
+  { "key": "ctrl+f", "command": "-workbench.action.terminal.focusFind", "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported" },
+  { "key": "ctrl+alt+m", "command": "workbench.action.problems.focus" },
+  { "key": "ctrl+shift+m", "command": "-workbench.actions.view.problems", "when": "workbench.panel.markers.view.active" },
+  { "key": "ctrl+n", "command": "-workbench.action.files.newUntitledFile" },
+  { "key": "ctrl+n", "command": "-extension.vim_ctrl+n", "when": "editorTextFocus && vim.active && vim.use<C-n> && !inDebugRepl || vim.active && vim.use<C-n> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-n> && !inDebugRepl && vim.mode == 'SearchInProgressMode'" },
+  { "key": "ctrl+p", "command": "-extension.vim_ctrl+p", "when": "editorTextFocus && vim.active && vim.use<C-p> && !inDebugRepl || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'CommandlineInProgress' || vim.active && vim.use<C-p> && !inDebugRepl && vim.mode == 'SearchInProgressMode'" },
+  { "key": "ctrl+f", "command": "-workbench.action.terminal.focusFind", "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocusInAny && terminalHasBeenCreated || terminalFocusInAny && terminalProcessSupported" }
+]
