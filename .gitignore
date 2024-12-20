@@ -1,12 +1,14 @@
-/bin/
-/code/
-/images/
-/env/
-/other/
-/tmp/
-/doc/
-/soft/
-/backups/
+/*
+
+!/scripts
+
+!/packages
+/packages/*
+!/packages/README.md
+
+!/data
+
+!/dotfiles
 
 /dotfiles/lazygit/*
 !/dotfiles/lazygit/config.yml
