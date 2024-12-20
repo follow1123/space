@@ -6,15 +6,15 @@ local act = wezterm.action
 
 local conf = {}
 
---############################ option
+-- options --------------------------------------------------------------------
 
-conf.color_scheme = "SoftServer"                                -- 主题
+conf.color_scheme = "Dark+"                                     -- 主题
 conf.use_fancy_tab_bar = false                                  -- tab样式
 conf.window_background_opacity = 0.9                            -- 背景透明度
 -- conf.font = wezterm.font("JetBrainsMono Nerd Font")             -- 字体
 -- conf.font = wezterm.font("Cascadia Code")                       -- 字体
 conf.font = wezterm.font("CaskaydiaCove Nerd Font")             -- 字体
-conf.font_size = 12                                             -- 字体大小
+conf.font_size = 13                                             -- 字体大小
 conf.default_cursor_style = "BlinkingBar"                       -- 光标样式
 conf.cursor_blink_rate = 700                                    -- 光标闪烁频率
 conf.cursor_blink_ease_in = "Constant"                          -- 光标闪烁显示效果
@@ -67,10 +67,8 @@ for _, value in ipairs(conf.launch_menu) do
 end
 
 -- 选择程序进行分屏
-local splitProgram = function (direction)
-  if not direction then
-    direction = "Right"
-  end
+local function splitProgram(direction)
+  direction = direction or "Right"
   return act.InputSelector {
     title = "Select Program To Split",
     fuzzy = true,
@@ -86,96 +84,171 @@ local splitProgram = function (direction)
   }
 end
 
---############################ keymap
+---@param key string
+---@param action any
+---@param mods string|nil
+---@return table
+local function keymap(key, action, mods)
+  return { key = key, mods = mods, action = action }
+end
 
--- leader key alt+x
-conf.leader = { key = "x", mods = "ALT", timeout_milliseconds = 1000 }
+local keys = {}
 
-conf.keys = {
-  -- 按两次Alt+x才是Alt+x
-  { key = "x",        mods = "LEADER",       action = act.SendKey { key = "a", mods = "ALT" } },
-  -- Pane keybindings
-  { key = "s",        mods = "LEADER",       action = act.SplitVertical { domain = "CurrentPaneDomain" } },
-  { key = "v",        mods = "LEADER",       action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-  { key = "q",        mods = "LEADER",       action = act.CloseCurrentPane { confirm = true } },
-  { key = "S",        mods = "LEADER",       action = splitProgram("Bottom") },
-  { key = "V",        mods = "LEADER",       action = splitProgram() },
-  { key = "h",        mods = "LEADER",       action = act.ActivatePaneDirection("Left") },
-  { key = "l",        mods = "LEADER",       action = act.ActivatePaneDirection("Right") },
-  { key = "j",        mods = "LEADER",       action = act.ActivatePaneDirection("Down") },
-  { key = "k",        mods = "LEADER",       action = act.ActivatePaneDirection("Up") },
+---@param key string
+---@param action any
+---@param mods string|string[]|nil
+function keys:set(key, action, mods)
+  if mods == nil then
+    table.insert(self, keymap(key, action))
+    return
+  end
+  mods = type(mods) == "table" and mods or { mods }
 
-  { key = "z",        mods = "LEADER",       action = act.TogglePaneZoomState },
-  { key = "r",        mods = "LEADER",       action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
-  { key = "R",        mods = "LEADER",       action = act.ActivateKeyTable { name = "rotate_pane", one_shot = false } },
+  for _, m in ipairs(mods) do
+    ---@cast m string
+    table.insert(self, keymap(key, action, m))
+  end
+end
 
-  -- Tab keybindings
-  { key = "n",        mods = "LEADER",       action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "n",        mods = "LEADER|ALT",   action = act.SpawnTab("CurrentPaneDomain") },
+-- keymaps --------------------------------------------------------------------
 
-  { key = "Tab",      mods = "CTRL|SHIFT",   action = act.ActivateTabRelative(-1) },
-  { key = "Tab",      mods = "CTRL",         action = act.ActivateTabRelative(1) },
-  { key = "t",        mods = "LEADER",       action = act.ShowTabNavigator },
-  { key = "m",        mods = "LEADER",       action = act.ActivateKeyTable { name = "move_tab", one_shot = false } },
-  { key = "o",        mods = "LEADER",       action = act.ShowLauncherArgs { flags = "FUZZY|LAUNCH_MENU_ITEMS" } },
+-- leader key
+conf.leader = { key = "w", mods = "ALT", timeout_milliseconds = 1000 }
 
-  { key = "1",        mods = "LEADER",       action = act.ActivateTab(0) },
-  { key = "2",        mods = "LEADER",       action = act.ActivateTab(1) },
-  { key = "3",        mods = "LEADER",       action = act.ActivateTab(2) },
-  { key = "4",        mods = "LEADER",       action = act.ActivateTab(3) },
-  { key = "5",        mods = "LEADER",       action = act.ActivateTab(4) },
-  { key = "6",        mods = "LEADER",       action = act.ActivateTab(5) },
-  { key = "7",        mods = "LEADER",       action = act.ActivateTab(6) },
-  { key = "8",        mods = "LEADER",       action = act.ActivateTab(7) },
-  { key = "9",        mods = "LEADER",       action = act.ActivateTab(8) },
+-- 按两次 Alt+w 才是 Alt+w
+keys:set("w", act.SendKey { key = "w", mods = "ALT" }, "LEADER|ALT")
+-- Pane keybindings
+keys:set("s", act.SplitVertical { domain = "CurrentPaneDomain" }, { "LEADER", "LEADER|ALT" })
+keys:set("v", act.SplitHorizontal { domain = "CurrentPaneDomain" }, { "LEADER", "LEADER|ALT" })
+keys:set("[", act.ActivateCopyMode , { "LEADER", "LEADER|ALT" })
+keys:set("S", splitProgram("Bottom"), "LEADER")
+keys:set("V", splitProgram(), "LEADER")
+keys:set("q", act.CloseCurrentPane { confirm = true }, { "LEADER", "LEADER|ALT" })
+keys:set("c", act.CloseCurrentPane { confirm = true }, { "LEADER", "LEADER|ALT" })
+keys:set("h", act.ActivatePaneDirection("Left"), { "LEADER", "LEADER|ALT" })
+keys:set("l", act.ActivatePaneDirection("Right"), { "LEADER", "LEADER|ALT" })
+keys:set("j", act.ActivatePaneDirection("Down"), { "LEADER", "LEADER|ALT" })
+keys:set("k", act.ActivatePaneDirection("Up"), { "LEADER", "LEADER|ALT" })
 
-  { key = "w",        mods = "LEADER",       action = act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
-  { key = "p",        mods = "CTRL|SHIFT",   action = act.ActivateCommandPalette },
-  { key = "f",        mods = "LEADER",       action = act.Search{ CaseSensitiveString = "" } },
-  { key = "F11",                             action = act.ToggleFullScreen },
+keys:set("z", act.TogglePaneZoomState, "LEADER")
+keys:set("r", act.ActivateKeyTable { name = "resize pane", one_shot = false }, { "LEADER", "LEADER|ALT" })
+keys:set("R", act.ActivateKeyTable { name = "rotate pane", one_shot = false }, "LEADER")
 
-  { key = "c",        mods = "CTRL|SHIFT",   action = act.CopyTo("Clipboard") },
-  { key = "v",        mods = "CTRL|SHIFT",   action = act.PasteFrom("Clipboard") },
+-- Tab keybindings
+keys:set("n", act.SpawnTab("CurrentPaneDomain"), { "LEADER", "LEADER|ALT" })
+keys:set("o", act.ShowLauncherArgs { flags = "FUZZY|LAUNCH_MENU_ITEMS" }, { "LEADER", "LEADER|ALT" })
 
-  -- font size
-  { key = "-",        mods = "CTRL",         action = act.DecreaseFontSize },
-  { key = "=",        mods = "CTRL",         action = act.IncreaseFontSize },
-  { key = "0",        mods = "CTRL",         action = act.ResetFontSize },
+keys:set("Tab", act.ActivateTabRelative(-1), "CTRL|SHIFT")
+keys:set("Tab", act.ActivateTabRelative(1), "CTRL")
+keys:set(";", act.ActivateTabRelative(1), "CTRL")
+keys:set(",", act.ActivateTabRelative(-1), "CTRL")
+keys:set("Tab", act.ActivateLastTab, { "LEADER", "LEADER|ALT" })
+keys:set("t", act.ShowTabNavigator, "LEADER")
+keys:set("m", act.ActivateKeyTable { name = "move tab", one_shot = false }, { "LEADER", "LEADER|ALT" })
 
-  { key = "PageUp",   mods = "SHIFT",        action = act.ScrollByPage(-1)},
-  { key = "PageDown", mods = "SHIFT",        action = act.ScrollByPage(1)},
+keys:set("W", act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" }, "LEADER")
+keys:set("p", act.ActivateCommandPalette, "CTRL|SHIFT")
+keys:set("F11", act.ToggleFullScreen)
 
-}
+keys:set("c", act.CopyTo("Clipboard"), "CTRL|SHIFT")
+keys:set("v", act.PasteFrom("Clipboard"), "CTRL|SHIFT")
+
+-- font size
+keys:set("-", act.DecreaseFontSize, "CTRL")
+keys:set("=", act.IncreaseFontSize, "CTRL")
+keys:set("0", act.ResetFontSize, "CTRL")
+
+keys:set("PageUp", act.ScrollByPage(-1), "SHIFT")
+keys:set("PageDown", act.ScrollByPage(1), "SHIFT")
+
+for i = 1, 9, 1 do
+  keys:set(tostring(i), act.ActivateTab(i - 1), "LEADER")
+end
 
 conf.key_tables = {
-  resize_pane = {
-    { key = "h",      action = act.AdjustPaneSize { "Left", 1 } },
-    { key = "j",      action = act.AdjustPaneSize { "Down", 1 } },
-    { key = "k",      action = act.AdjustPaneSize { "Up", 1 } },
-    { key = "l",      action = act.AdjustPaneSize { "Right", 1 } },
+  ["resize pane"] = {
+    keymap("h", act.AdjustPaneSize { "Left", 1 }),
+    keymap("j", act.AdjustPaneSize { "Down", 1 }),
+    keymap("k", act.AdjustPaneSize { "Up", 1 }),
+    keymap("l", act.AdjustPaneSize { "Right", 1 }),
   },
-  rotate_pane = {
-    { key = "j",      action = act.RotatePanes("Clockwise") },
-    { key = "k",      action = act.RotatePanes("CounterClockwise") },
+  ["rotate pane"] = {
+    keymap("j", act.RotatePanes("Clockwise")),
+    keymap("k", act.RotatePanes("CounterClockwise")),
   },
-  move_tab = {
-    { key = "h",      action = act.MoveTabRelative(-1) },
-    { key = "j",      action = act.MoveTabRelative(-1) },
-    { key = "k",      action = act.MoveTabRelative(1) },
-    { key = "l",      action = act.MoveTabRelative(1) },
+  ["move tab"] = {
+    keymap("h", act.MoveTabRelative(-1)),
+    keymap("j", act.MoveTabRelative(-1)),
+    keymap("k", act.MoveTabRelative(1)),
+    keymap("l", act.MoveTabRelative(1)),
   }
 }
 
 -- 添加退出键
 for _, value in pairs(conf.key_tables) do
-  table.insert(value, { key = "Escape", action = "PopKeyTable" })
-  table.insert(value, { key = "[",      action = "PopKeyTable", mods = "CTRL" })
-  table.insert(value, { key = "Enter", action = "PopKeyTable" })
+  table.insert(value, keymap("Escape", "PopKeyTable"))
+  table.insert(value, keymap("[", "PopKeyTable",  "CTRL"))
+  table.insert(value, keymap("Enter", "PopKeyTable"))
 end
 
+conf.key_tables.copy_mode = {
+  { key = 'Escape', mods = 'NONE', action = act.CopyMode 'Close' },
+  { key = 'q', mods = 'NONE', action = act.CopyMode 'Close' },
+  { key = 'c', mods = 'CTRL', action = act.CopyMode 'Close' },
+  { key = '[', mods = 'CTRL', action = act.CopyMode 'ClearSelectionMode' },
+  { key = 'Space', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Cell' } },
+  { key = '$', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent' },
+  { key = '$', mods = 'SHIFT', action = act.CopyMode 'MoveToEndOfLineContent' },
+  { key = ',', mods = 'NONE', action = act.CopyMode 'JumpReverse' },
+  { key = '0', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine' },
+  { key = ';', mods = 'NONE', action = act.CopyMode 'JumpAgain' },
+  { key = 'F', mods = 'NONE', action = act.CopyMode{ JumpBackward = { prev_char = false } } },
+  { key = 'F', mods = 'SHIFT', action = act.CopyMode{ JumpBackward = { prev_char = false } } },
+  { key = 'G', mods = 'NONE', action = act.CopyMode 'MoveToScrollbackBottom' },
+  { key = 'G', mods = 'SHIFT', action = act.CopyMode 'MoveToScrollbackBottom' },
+  { key = 'H', mods = 'NONE', action = act.CopyMode 'MoveToViewportTop' },
+  { key = 'H', mods = 'SHIFT', action = act.CopyMode 'MoveToViewportTop' },
+  { key = 'L', mods = 'NONE', action = act.CopyMode 'MoveToViewportBottom' },
+  { key = 'L', mods = 'SHIFT', action = act.CopyMode 'MoveToViewportBottom' },
+  { key = 'M', mods = 'NONE', action = act.CopyMode 'MoveToViewportMiddle' },
+  { key = 'M', mods = 'SHIFT', action = act.CopyMode 'MoveToViewportMiddle' },
+  { key = 'O', mods = 'NONE', action = act.CopyMode 'MoveToSelectionOtherEndHoriz' },
+  { key = 'O', mods = 'SHIFT', action = act.CopyMode 'MoveToSelectionOtherEndHoriz' },
+  { key = 'T', mods = 'NONE', action = act.CopyMode{ JumpBackward = { prev_char = true } } },
+  { key = 'T', mods = 'SHIFT', action = act.CopyMode{ JumpBackward = { prev_char = true } } },
+  { key = 'V', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Line' } },
+  { key = 'V', mods = 'SHIFT', action = act.CopyMode{ SetSelectionMode =  'Line' } },
+  { key = '^', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLineContent' },
+  { key = '^', mods = 'SHIFT', action = act.CopyMode 'MoveToStartOfLineContent' },
+  { key = 'b', mods = 'NONE', action = act.CopyMode 'MoveBackwardWord' },
+  { key = 'b', mods = 'ALT', action = act.CopyMode 'MoveBackwardWord' },
+  { key = 'b', mods = 'CTRL', action = act.CopyMode 'PageUp' },
+  { key = 'd', mods = 'CTRL', action = act.CopyMode{ MoveByPage = (0.5) } },
+  { key = 'e', mods = 'NONE', action = act.CopyMode 'MoveForwardWordEnd' },
+  { key = 'f', mods = 'NONE', action = act.CopyMode{ JumpForward = { prev_char = false } } },
+  { key = 'f', mods = 'ALT', action = act.CopyMode 'MoveForwardWord' },
+  { key = 'f', mods = 'CTRL', action = act.CopyMode 'PageDown' },
+  { key = 'g', mods = 'NONE', action = act.CopyMode 'MoveToScrollbackTop' },
+  { key = 'g', mods = 'CTRL', action = act.CopyMode 'Close' },
+  { key = 'h', mods = 'NONE', action = act.CopyMode 'MoveLeft' },
+  { key = 'j', mods = 'NONE', action = act.CopyMode 'MoveDown' },
+  { key = 'k', mods = 'NONE', action = act.CopyMode 'MoveUp' },
+  { key = 'l', mods = 'NONE', action = act.CopyMode 'MoveRight' },
+  { key = 'm', mods = 'ALT', action = act.CopyMode 'MoveToStartOfLineContent' },
+  { key = 'o', mods = 'NONE', action = act.CopyMode 'MoveToSelectionOtherEnd' },
+  { key = 't', mods = 'NONE', action = act.CopyMode{ JumpForward = { prev_char = true } } },
+  { key = 'u', mods = 'CTRL', action = act.CopyMode{ MoveByPage = (-0.5) } },
+  { key = 'v', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Cell' } },
+  { key = 'v', mods = 'CTRL', action = act.CopyMode{ SetSelectionMode =  'Block' } },
+  { key = 'w', mods = 'NONE', action = act.CopyMode 'MoveForwardWord' },
+  { key = 'y', mods = 'NONE', action = act.Multiple{ { CopyTo =  'ClipboardAndPrimarySelection' }, { CopyMode =  'Close' } } },
+}
 
--- ct.RotatePanes "Clockwise"
---############################ mouse
+keys.set = nil
+
+conf.keys = keys
+
+-- mouse ----------------------------------------------------------------------
 
 conf.mouse_bindings = {
   -- { -- 禁用鼠标左键两下选中word时复制
@@ -190,7 +263,7 @@ conf.mouse_bindings = {
   },
 }
 
---############################ events
+-- events ---------------------------------------------------------------------
 
 local color_red1 = "#f7768e"
 local color_blue1 = "#7dcfff"
@@ -208,7 +281,7 @@ wezterm.on("update-status", function(window)
 
   if window:active_key_table() then
     stat = window:active_key_table()
-    stat_color = colo_blue1
+    stat_color = color_blue1
   end
 
   if window:leader_is_active() then
