@@ -72,8 +72,6 @@ Set-Alias -Name lg -Value lazygit
 Set-Alias -Name ld -Value lazydocker
 Set-Alias -Name make -Value mingw32-make.exe
 
-Set-Alias -Name jdks -Value "$Env:USERPROFILE/space/scripts/jdk_select.ps1"
-Set-Alias -Name mvns -Value "$Env:USERPROFILE/space/scripts/maven_select.ps1"
 Set-Alias -Name vim -Value "$Env:USERPROFILE/space/scripts/vim.cmd"
 
 # keymap ----------------------------------------------------------------------
