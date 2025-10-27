@@ -8,7 +8,7 @@ space
 ├── docs # 文档
 ├── dotfiles # 配置文件
 ├── archives # 归档文件（压缩包、安装包）
-├── media # 媒体文件（个人图片、视频）
+├── personal # 私人文件（个人图片、视频、资料）
 ├── apps # 桌面软件
 ├── packages # 软件包
 ├── scripts # 脚本
@@ -21,3 +21,4 @@ space
 `space/bin` 目录可以添加到 `PATH` 环境变量内
 
 - [部分软件安装方式](/installation.md)
+- [备份方案](/backup.md)
